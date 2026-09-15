@@ -10,8 +10,10 @@ export default function Hero() {
   const [showreelOpen, setShowreelOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const showreelVideoRef = useRef<HTMLVideoElement>(null);
   const [timecode, setTimecode] = useState("00:00:00:00");
 
+  // Realtime Running SMPTE Timecode
   useEffect(() => {
     let frame = 0;
     const interval = setInterval(() => {
@@ -30,11 +32,31 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  // Ambient sound toggle for background reel
   const toggleSound = () => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
     }
+  };
+
+  // Synchronize playback when opening/closing modal
+  const handleOpenShowreel = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setShowreelOpen(true);
+  };
+
+  const handleCloseShowreel = () => {
+    if (showreelVideoRef.current) {
+      showreelVideoRef.current.pause();
+      showreelVideoRef.current.currentTime = 0;
+    }
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+    setShowreelOpen(false);
   };
 
   return (
@@ -116,9 +138,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* 3. CENTER CONTENT (BALANCED SCALE) */}
+        {/* 3. CENTER CONTENT */}
         <div className="relative max-w-4xl mx-auto text-center z-10 py-12 px-4">
-          {/* Tag */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,7 +152,6 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Balanced Display Title */}
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -144,7 +164,6 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Clean Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,7 +173,6 @@ export default function Hero() {
             From the first concept to the final frame — engineering commercial films, documentaries, and large-scale multi-camera live experiences.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +189,7 @@ export default function Hero() {
 
             <button
               type="button"
-              onClick={() => setShowreelOpen(true)}
+              onClick={handleOpenShowreel}
               className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-surface/80 border border-surface-border hover:border-neutral-600 text-neutral-300 hover:text-white text-[11px] uppercase tracking-widest font-semibold transition-all backdrop-blur-md cursor-pointer"
             >
               <Play className="w-3 h-3 fill-brand-red text-brand-red" />
@@ -181,7 +199,7 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* 4. SHOWREEL MODAL */}
+      {/* 4. LOCAL SHOWREEL MODAL */}
       <AnimatePresence>
         {showreelOpen && (
           <motion.div
@@ -190,28 +208,34 @@ export default function Hero() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8"
           >
+            {/* Close Button */}
             <button
-              onClick={() => setShowreelOpen(false)}
-              className="absolute top-6 right-6 p-3 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+              onClick={handleCloseShowreel}
+              className="absolute top-6 right-6 p-3 rounded-full bg-neutral-900/80 border border-neutral-700 text-neutral-300 hover:text-white hover:border-brand-red transition-colors cursor-pointer z-50"
               aria-label="Close Showreel"
             >
               <X className="w-5 h-5" />
             </button>
 
+            {/* Modal Player Card */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden border border-surface-border bg-black shadow-2xl"
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-surface-border bg-black shadow-2xl relative"
             >
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1"
-                title="ZU Production Showreel"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+              <video
+                ref={showreelVideoRef}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain bg-black"
+              >
+                {/* Place your local video file in public/videos/showreel.mp4 */}
+                <source src="/videos/reel.mp4" type="video/mp4" />
+                Your browser does not support HTML5 video playback.
+              </video>
             </motion.div>
           </motion.div>
         )}
