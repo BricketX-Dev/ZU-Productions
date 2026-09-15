@@ -1,16 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Sparkles, 
-  Film, 
   CheckCircle2, 
   ChevronRight, 
-  Sliders, 
-  Layers, 
-  Eye, 
-  Send 
+  Layers
 } from "lucide-react";
 
 const WORKFLOW_DATA = [
@@ -70,8 +65,40 @@ const WORKFLOW_DATA = [
   },
 ];
 
+const AUTOPLAY_INTERVAL = 6000; // 6 seconds per step
+
 export default function Workflow() {
-  const [activeStep, setActiveStep] = useState(4); // Default to "Finish"
+  const [activeStep, setActiveStep] = useState(0); 
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Auto-play logic
+  useEffect(() => {
+    if (isPaused) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % WORKFLOW_DATA.length);
+    }, AUTOPLAY_INTERVAL);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, activeStep]);
+
+  // Handle manual clicks
+  const handleStepClick = (index: number) => {
+    setActiveStep(index);
+    setIsPaused(true); // Pause if user actively clicks a step
+    
+    // Optional: Resume auto-play after 10 seconds of inactivity if they clicked manually
+    setTimeout(() => {
+      setIsPaused(false);
+    }, 10000);
+  };
+
   const current = WORKFLOW_DATA[activeStep];
 
   return (
@@ -121,7 +148,7 @@ export default function Workflow() {
                 <button
                   key={wf.step}
                   type="button"
-                  onClick={() => setActiveStep(idx)}
+                  onClick={() => handleStepClick(idx)}
                   className="flex flex-col items-center group cursor-pointer text-left focus:outline-none"
                 >
                   {/* Pin Node */}
@@ -161,7 +188,24 @@ export default function Workflow() {
         </div>
 
         {/* 3. Deep Dive Phase Inspector Console */}
-        <div className="rounded-2xl bg-surface/90 border border-surface-border p-6 sm:p-10 relative overflow-hidden shadow-2xl">
+        <div 
+          className="rounded-2xl bg-surface/90 border border-surface-border p-6 sm:p-10 relative overflow-hidden shadow-2xl"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Timer Progress Indicator (Visual cue for auto-play) */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-neutral-900">
+            {!isPaused && (
+              <motion.div
+                key={activeStep} // Reset animation on step change
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" }}
+                className="h-full bg-brand-red opacity-50"
+              />
+            )}
+          </div>
+
           {/* Subtle Corner Film Gate Marks */}
           <div className="absolute top-4 left-4 font-mono text-[9px] text-neutral-600 tracking-widest uppercase select-none">
             [ PIPELINE STAGE // {current.step} OF 06 ]
@@ -174,10 +218,10 @@ export default function Workflow() {
           <AnimatePresence mode="wait">
             <motion.div
               key={current.step}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
             >
               {/* Left Column: Scope & Overview */}

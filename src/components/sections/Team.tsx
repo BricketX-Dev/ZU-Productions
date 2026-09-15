@@ -1,8 +1,9 @@
+// src/components/sections/Team.tsx
 "use client";
 
 import { motion } from "framer-motion";
-import { TEAM, CLIENT_BADGES } from "@/data/content";
-import { Users, Film, Award } from "lucide-react";
+import { TEAM } from "@/data/content";
+import { Film } from "lucide-react";
 
 // Categorize roles for crew tags
 const getDepartmentTag = (title: string) => {
@@ -18,39 +19,6 @@ const getDepartmentTag = (title: string) => {
 export default function Team() {
   return (
     <section id="team" className="py-28 border-t border-surface-border bg-black relative overflow-hidden">
-      {/* 1. INFINITE CLIENT & BROADCAST TICKER */}
-      <div className="mb-24 overflow-hidden border-y border-neutral-900 bg-neutral-950/60 py-6">
-        <div className="max-w-7xl mx-auto px-6 mb-4 flex items-center gap-2">
-          <Award className="w-3.5 h-3.5 text-brand-accent" />
-          <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-500">
-            Trusted By Broadcasters & Global Institutions
-          </span>
-        </div>
-
-        {/* Continuous Animated Marquee */}
-        <div className="relative flex overflow-x-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <motion.div
-            className="flex shrink-0 items-center gap-12 whitespace-nowrap"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            {[...CLIENT_BADGES, ...CLIENT_BADGES, ...CLIENT_BADGES, ...CLIENT_BADGES].map((badge, idx) => (
-              <div key={idx} className="flex items-center gap-12">
-                <span className="font-display text-sm sm:text-base font-extrabold uppercase tracking-wider text-neutral-500 hover:text-white transition-colors">
-                  {badge}
-                </span>
-                <span className="h-1 w-1 rounded-full bg-brand-red/60" />
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-
-      {/* 2. MAIN CREW / TEAM LOCKUP */}
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -70,7 +38,7 @@ export default function Team() {
           </p>
         </div>
 
-        {/* 3. Team Credit Cards Grid */}
+        {/* Team Credit Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {TEAM.map((member, idx) => {
             const dept = getDepartmentTag(member.title);

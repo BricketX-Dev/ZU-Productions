@@ -30,7 +30,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom cinematic glow & glass utility classes */
+/* Custom cinematic glow & utility classes */
 @layer utilities {
   .crimson-glow {
     box-shadow: 0 0 50px -10px rgba(196, 12, 12, 0.35);
@@ -40,6 +40,29 @@ body {
     box-shadow: 0 0 20px -5px rgba(196, 12, 12, 0.4);
   }
 }
+
 @utility bg-radial-vignette {
   background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+/* Lenis Smooth Scroll Engine Styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
