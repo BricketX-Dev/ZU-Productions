@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -83,11 +84,11 @@ const FEATURED_PROJECTS = [
     tag: "COMMERCIAL",
   },
   {
-    title: "Jamia Binoria",
-    scope: "Annual Convocation Execution",
-    category: "Full Event Production",
-    href: "/work/jamia-binoria",
-    tag: "LIVE EVENT",
+    title: "The Studio Sessions",
+    scope: "Multi-Camera Episodic Podcast & Digital Show",
+    category: "Studio Show & Podcast",
+    href: "/work/studio-podcast-series",
+    tag: "PODCAST",
   },
 ];
 
@@ -419,7 +420,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2.5 rounded-xl border border-neutral-800 bg-surface text-neutral-300 hover:text-white focus:outline-none transition-colors"
+              className="p-2.5 rounded-xl border border-neutral-800 bg-surface text-neutral-300 hover:text-white focus:outline-none transition-colors cursor-pointer"
               aria-label="Toggle Navigation Drawer"
             >
               {isOpen ? <X className="w-5 h-5 text-brand-red" /> : <Menu className="w-5 h-5" />}
@@ -453,7 +454,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setMobileCapabilitiesOpen(!mobileCapabilitiesOpen)}
-                  className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold"
+                  className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold cursor-pointer"
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-brand-red">01.</span> Capabilities
@@ -506,7 +507,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
-                  className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold"
+                  className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold cursor-pointer"
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-brand-red">02.</span> Selected Work
