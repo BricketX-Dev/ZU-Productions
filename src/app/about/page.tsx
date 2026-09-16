@@ -41,7 +41,7 @@ export default function AboutPage() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
             <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-              01 — Who We Are
+              01 - Who We Are
             </span>
           </div>
 
@@ -64,7 +64,7 @@ export default function AboutPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
           <div>
             <span className="text-xs font-mono uppercase tracking-widest text-brand-red font-bold">
-              13 — Creative Philosophy
+              13 - Creative Philosophy
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase mt-2">
               Beyond The Equipment
@@ -98,7 +98,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 space-y-4">
             <span className="text-xs font-mono uppercase tracking-widest text-brand-red font-bold">
-              08 — International Experience
+              08 - International Experience
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase leading-tight">
               Local Heritage. <br /> Global Perspective.
@@ -156,7 +156,7 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-brand-red font-bold">
-            15 — The Collective
+            15 - The Collective
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase mt-2">
             Executive Leadership & Team

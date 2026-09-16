@@ -113,7 +113,7 @@ export default function Workflow() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-border bg-surface/80 backdrop-blur-md mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                Production Pipeline
+                04 - Production Pipeline
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase tracking-tight">

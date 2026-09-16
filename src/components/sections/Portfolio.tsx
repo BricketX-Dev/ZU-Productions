@@ -162,7 +162,7 @@ export default function Portfolio({ isPage = false }: { isPage?: boolean }) {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-ping" />
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                09 — Production Archive
+                03 - Production Archive
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">

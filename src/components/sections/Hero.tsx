@@ -170,7 +170,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-5 text-neutral-400 max-w-xl mx-auto text-sm sm:text-base font-normal leading-relaxed"
           >
-            From the first concept to the final frame — engineering commercial films, documentaries, and large-scale multi-camera live experiences.
+            From the first concept to the final frame - engineering commercial films, documentaries, and large-scale multi-camera live experiences.
           </motion.p>
 
           <motion.div

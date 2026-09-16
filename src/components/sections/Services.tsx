@@ -117,7 +117,7 @@ export default function Services() {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
         <div>
           <span className="text-xs font-mono uppercase tracking-widest text-brand-red font-bold">
-            02 — Capabilities
+            02 - Capabilities
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold mt-2 text-white">
             What We Do

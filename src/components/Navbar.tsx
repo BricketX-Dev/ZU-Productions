@@ -166,34 +166,21 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
-          {/* 1. Brand Logo & Live Signal */}
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-8 w-28 sm:h-9 sm:w-36 transition-transform duration-300 group-hover:scale-105">
-                <Image
-                  src="/images/logo/logo1.png"
-                  alt="ZU PRODUCTION"
-                  fill
-                  sizes="(max-width: 640px) 112px, 144px"
-                  priority
-                  className="object-contain object-left"
-                />
-              </div>
-            </Link>
-
-            {/* Live Studio Status Indicator */}
-            <div className="hidden xl:flex items-center gap-2 pl-6 border-l border-neutral-800 font-mono text-[10px] uppercase tracking-widest text-neutral-400 select-none">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-red" />
-              </span>
-              <span className="text-neutral-500">LIVE FEED</span>
-              <span className="text-neutral-700">//</span>
-              <span className="text-neutral-300 font-semibold">24 FPS DCI</span>
+          {/* Brand Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative h-8 w-28 sm:h-9 sm:w-36 transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/images/logo/logo1.png"
+                alt="ZU PRODUCTION"
+                fill
+                sizes="(max-width: 640px) 112px, 144px"
+                priority
+                className="object-contain object-left"
+              />
             </div>
-          </div>
+          </Link>
 
-          {/* 2. Desktop Navigation */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest font-mono">
             {/* CAPABILITIES DROPDOWN */}
             <div
@@ -358,7 +345,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Footer Row */}
-                    <div className="pt-3 border-t border-neutral-900 flex justify-between items-center text-[11px] font-mono text-neutral-400">
+                    <div className="pt-3 border-t border-neutral-900 flex items-center text-[11px] font-mono text-neutral-400">
                       <Link
                         href="/work"
                         onClick={() => setWorkOpen(false)}
@@ -367,9 +354,6 @@ export default function Navbar() {
                         <Play className="w-3 h-3 fill-current text-brand-red" />
                         <span>Filter by Category & Watch Reel</span>
                       </Link>
-                      <span className="text-[10px] text-neutral-600 uppercase tracking-widest">
-                        4K DCI / MASTERED
-                      </span>
                     </div>
                   </motion.div>
                 )}
@@ -409,7 +393,7 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* 3. Mobile Hamburger Trigger */}
+          {/* Mobile Hamburger Trigger */}
           <div className="flex items-center gap-3 lg:hidden">
             <Link
               href="/contact"
@@ -429,7 +413,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* 4. Fullscreen Mobile Navigation Drawer */}
+      {/* Fullscreen Mobile Navigation Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -440,15 +424,6 @@ export default function Navbar() {
             className="fixed inset-0 top-[65px] z-40 lg:hidden bg-black/98 backdrop-blur-3xl flex flex-col justify-between overflow-y-auto px-6 py-6 border-t border-surface-border"
           >
             <div className="space-y-4">
-              {/* Telemetry Status Bar */}
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-900 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
-                <span className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
-                  STUDIO WIRE // READY
-                </span>
-                <span>PAKISTAN // GLOBAL</span>
-              </div>
-
               {/* Mobile Accordion: Capabilities */}
               <div className="border-b border-neutral-900 pb-3">
                 <button

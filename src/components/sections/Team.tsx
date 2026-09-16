@@ -26,7 +26,7 @@ export default function Team() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-3">
               <Film className="w-3 h-3 text-brand-accent" />
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                15 — Production Roster
+                05 - Production Roster
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase tracking-tight">

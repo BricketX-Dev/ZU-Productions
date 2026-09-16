@@ -111,7 +111,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     title: "Digital Content & Social Production",
     tagline: "Algorithm-Aware, High-Impact Media for Modern Channels",
     overview:
-      "We design short- and long-form video specifically calibrated for current audience consumption trends—combining agile filming units with rapid turnaround editing workflows.",
+      "We design short- and long-form video specifically calibrated for current audience consumption trends-combining agile filming units with rapid turnaround editing workflows.",
     deliverables: [
       "9:16 Cinematic Reels & Shorts",
       "Long-Form YouTube Productions",
