@@ -38,11 +38,6 @@ export interface ProjectItem {
   featured?: boolean;
 }
 
-export interface TeamMember {
-  name: string;
-  title: string;
-  roleTag: "DIRECTION" | "PRODUCTION" | "ART DEPT" | "EVENT" | "POST-PROD" | "DIGITAL";
-}
 
 export interface ClientBrand {
   name: string;
@@ -192,15 +187,64 @@ export const PROJECTS: ProjectItem[] = [
   },
 ];
 
+// Add to TeamMember interface in src/data/content.ts
+export interface TeamMember {
+  name: string;
+  title: string;
+  roleTag: "DIRECTION" | "PRODUCTION" | "ART DEPT" | "EVENT" | "POST-PROD" | "DIGITAL";
+  image: string;
+}
+
+// Updated TEAM array with direct image paths
 export const TEAM: TeamMember[] = [
-  { name: "M. Zaeem Siddiqui", title: "Founding Partner | Producer | Director", roleTag: "DIRECTION" },
-  { name: "Umair Farooqui", title: "Founding Partner | Producer | Production", roleTag: "PRODUCTION" },
-  { name: "Mallik Matti", title: "Art Director | Production Designer", roleTag: "ART DEPT" },
-  { name: "Asif Nicky", title: "Affiliated Partner | Event Management", roleTag: "EVENT" },
-  { name: "Umair Khan", title: "Production Manager", roleTag: "PRODUCTION" },
-  { name: "Faraz", title: "Head of Digital & Marketing", roleTag: "DIGITAL" },
-  { name: "Shahzaib", title: "Post-Production Specialist", roleTag: "POST-PROD" },
-  { name: "Sajjad Hussain", title: "Post-Production Specialist", roleTag: "POST-PROD" },
+  {
+    name: "M. Zaeem Siddiqui",
+    title: "Founding Partner | Producer | Director",
+    roleTag: "DIRECTION",
+    image: "/images/team/zaeem.jpg",
+  },
+  {
+    name: "Umair Farooqui",
+    title: "Founding Partner | Producer | Production",
+    roleTag: "PRODUCTION",
+    image: "/images/team/umair-farooqui.jpg",
+  },
+  {
+    name: "Mallik Matti",
+    title: "Art Director | Production Designer",
+    roleTag: "ART DEPT",
+    image: "/images/team/mallik-matti.jpg",
+  },
+  {
+    name: "Asif Nicky",
+    title: "Affiliated Partner | Event Management",
+    roleTag: "EVENT",
+    image: "/images/team/asif-nicky.jpg",
+  },
+  {
+    name: "Umair Khan",
+    title: "Production Manager",
+    roleTag: "PRODUCTION",
+    image: "/images/team/umair-khan.jpg",
+  },
+  {
+    name: "Faraz",
+    title: "Head of Digital & Marketing",
+    roleTag: "DIGITAL",
+    image: "/images/team/faraz.jpg",
+  },
+  {
+    name: "Shahzaib",
+    title: "Post-Production Specialist",
+    roleTag: "POST-PROD",
+    image: "/images/team/shahzaib.jpg",
+  },
+  {
+    name: "Sajjad Hussain",
+    title: "Post-Production Specialist",
+    roleTag: "POST-PROD",
+    image: "/images/team/sajjad-hussain.jpg",
+  },
 ];
 
 export const CLIENT_BADGES: ClientBrand[] = [

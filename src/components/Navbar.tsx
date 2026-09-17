@@ -109,7 +109,7 @@ export default function Navbar() {
   const capabilitiesRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
 
-  // Scroll detection for backdrop glass morph
+  // Scroll detection for dynamic background treatment
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -118,7 +118,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close all menus on route change
+  // Close all drawer and dropdown states upon route change
   useEffect(() => {
     setIsOpen(false);
     setCapabilitiesOpen(false);
@@ -127,7 +127,7 @@ export default function Navbar() {
     setMobileWorkOpen(false);
   }, [pathname]);
 
-  // Lock body scroll when mobile menu is active
+  // Lock body viewport scrolling when mobile menu drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -139,7 +139,7 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  // Close desktop dropdowns on outside click
+  // Close desktop dropdown menus on outside interaction
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -159,7 +159,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 select-none ${
           scrolled || isOpen
             ? "bg-black/90 backdrop-blur-2xl border-b border-surface-border py-3.5"
             : "bg-gradient-to-b from-black/80 via-black/40 to-transparent border-b border-transparent py-5"
@@ -180,9 +180,9 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation Bar */}
           <nav className="hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest font-mono">
-            {/* CAPABILITIES DROPDOWN */}
+            {/* Capabilities Mega Dropdown */}
             <div
               ref={capabilitiesRef}
               className="relative"
@@ -217,7 +217,7 @@ export default function Navbar() {
                     className="absolute top-full -left-20 w-[640px] mt-2 rounded-2xl bg-neutral-950/95 border border-surface-border p-6 shadow-2xl backdrop-blur-3xl grid grid-cols-2 gap-3 z-50"
                   >
                     <div className="col-span-2 pb-3 mb-2 border-b border-neutral-800/80 flex justify-between items-center text-[10px] text-neutral-400 font-mono tracking-widest uppercase">
-                      <span className="flex items-center gap-1.5">
+                      <span className="flex items-center gap-1.5 font-semibold text-neutral-300">
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
                         PRODUCTION CAPABILITY MATRIX
                       </span>
@@ -245,7 +245,7 @@ export default function Navbar() {
                               : "bg-surface/50 hover:bg-neutral-900/90 border-surface-border hover:border-neutral-700"
                           }`}
                         >
-                          <div className="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-brand-accent group-hover/item:border-brand-red/50 group-hover/item:bg-brand-darkRed/20 transition-all">
+                          <div className="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-brand-accent transition-all group-hover/item:border-brand-red/50 group-hover/item:bg-brand-dark-red/20">
                             <Icon className="w-4 h-4" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -269,7 +269,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* SELECTED WORK DROPDOWN */}
+            {/* Selected Work Mega Dropdown */}
             <div
               ref={workRef}
               className="relative"
@@ -304,7 +304,7 @@ export default function Navbar() {
                     className="absolute top-full -left-28 w-[580px] mt-2 rounded-2xl bg-neutral-950/95 border border-surface-border p-6 shadow-2xl backdrop-blur-3xl z-50 space-y-4"
                   >
                     <div className="pb-3 border-b border-neutral-800/80 flex justify-between items-center text-[10px] text-neutral-400 font-mono tracking-widest uppercase">
-                      <span className="flex items-center gap-1.5">
+                      <span className="flex items-center gap-1.5 font-semibold text-neutral-300">
                         <Award className="w-3.5 h-3.5 text-brand-red" />
                         FEATURED CASE STUDIES
                       </span>
@@ -317,7 +317,7 @@ export default function Navbar() {
                       </Link>
                     </div>
 
-                    {/* Featured Case Studies */}
+                    {/* Featured Case Study Items */}
                     <div className="grid grid-cols-1 gap-2.5">
                       {FEATURED_PROJECTS.map((proj) => (
                         <Link
@@ -331,7 +331,7 @@ export default function Navbar() {
                               <span className="font-sans text-xs font-bold text-neutral-200 group-hover/item:text-white transition-colors normal-case">
                                 {proj.title}
                               </span>
-                              <span className="text-[9px] font-mono text-brand-accent uppercase tracking-wider bg-brand-darkRed/20 border border-brand-red/30 px-2 py-0.5 rounded">
+                              <span className="text-[9px] font-mono text-brand-accent uppercase tracking-wider bg-brand-dark-red/20 border border-brand-red/30 px-2 py-0.5 rounded">
                                 {proj.tag}
                               </span>
                             </div>
@@ -344,7 +344,7 @@ export default function Navbar() {
                       ))}
                     </div>
 
-                    {/* Footer Row */}
+                    {/* Dropdown Footer Quick Link */}
                     <div className="pt-3 border-t border-neutral-900 flex items-center text-[11px] font-mono text-neutral-400">
                       <Link
                         href="/work"
@@ -360,7 +360,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {/* Standard Navigation Links */}
+            {/* Standard Primary Navigation Links */}
             {PRIMARY_LINKS.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -386,14 +386,14 @@ export default function Navbar() {
             {/* Primary Action Button */}
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-red hover:bg-brand-darkRed text-white text-xs uppercase tracking-widest font-bold font-mono transition-all duration-300 crimson-glow hover:scale-[1.03]"
+              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs uppercase tracking-widest font-bold font-mono transition-all duration-300 crimson-glow hover:scale-[1.03]"
             >
               <span>Initiate RFP</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
           </nav>
 
-          {/* Mobile Hamburger Trigger */}
+          {/* Mobile Hamburger Trigger & Quick RFP */}
           <div className="flex items-center gap-3 lg:hidden">
             <Link
               href="/contact"
@@ -421,7 +421,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 top-[65px] z-40 lg:hidden bg-black/98 backdrop-blur-3xl flex flex-col justify-between overflow-y-auto px-6 py-6 border-t border-surface-border"
+            className="fixed inset-0 top-[65px] z-40 lg:hidden bg-black/98 backdrop-blur-3xl flex flex-col justify-between overflow-y-auto px-6 py-6 border-t border-surface-border select-none"
           >
             <div className="space-y-4">
               {/* Mobile Accordion: Capabilities */}
@@ -431,9 +431,7 @@ export default function Navbar() {
                   onClick={() => setMobileCapabilitiesOpen(!mobileCapabilitiesOpen)}
                   className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold cursor-pointer"
                 >
-                  <span className="flex items-center gap-2">
-                    <span className="text-brand-red">01.</span> Capabilities
-                  </span>
+                  <span>Capabilities</span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
                       mobileCapabilitiesOpen ? "rotate-180 text-brand-red" : "text-neutral-500"
@@ -484,9 +482,7 @@ export default function Navbar() {
                   onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
                   className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest text-neutral-300 font-bold cursor-pointer"
                 >
-                  <span className="flex items-center gap-2">
-                    <span className="text-brand-red">02.</span> Selected Work
-                  </span>
+                  <span>Selected Work</span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
                       mobileWorkOpen ? "rotate-180 text-brand-red" : "text-neutral-500"
@@ -528,17 +524,14 @@ export default function Navbar() {
               </div>
 
               {/* Standard Links */}
-              {PRIMARY_LINKS.map((link, idx) => (
+              {PRIMARY_LINKS.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-between py-2.5 border-b border-neutral-900 text-sm font-mono uppercase tracking-widest text-neutral-300 hover:text-white"
                 >
-                  <span className="flex items-center gap-2">
-                    <span className="text-neutral-600">0{idx + 3}.</span>
-                    <span>{link.name}</span>
-                  </span>
+                  <span>{link.name}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-neutral-600" />
                 </Link>
               ))}
@@ -549,15 +542,12 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-between py-2.5 border-b border-neutral-900 text-sm font-mono uppercase tracking-widest text-neutral-300 hover:text-white"
               >
-                <span className="flex items-center gap-2">
-                  <span className="text-neutral-600">05.</span>
-                  <span>Contact Desk</span>
-                </span>
+                <span>Contact Desk</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-neutral-600" />
               </Link>
             </div>
 
-            {/* Mobile Footer Quick RFP Trigger */}
+            {/* Mobile Footer Drawer Details */}
             <div className="pt-6 space-y-4">
               <Link
                 href="/contact"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { 
   CheckCircle2, 
   ChevronRight, 
@@ -72,9 +72,13 @@ export default function Workflow() {
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-play logic
+  // Reference to monitor section visibility
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.35 }); // Active when at least 35% of section is visible
+
+  // Auto-play logic: only active when in view and not paused
   useEffect(() => {
-    if (isPaused) {
+    if (!isInView || isPaused) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
@@ -86,14 +90,14 @@ export default function Workflow() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPaused, activeStep]);
+  }, [isInView, isPaused, activeStep]);
 
   // Handle manual clicks
   const handleStepClick = (index: number) => {
     setActiveStep(index);
-    setIsPaused(true); // Pause if user actively clicks a step
+    setIsPaused(true);
     
-    // Optional: Resume auto-play after 10 seconds of inactivity if they clicked manually
+    // Resume auto-play after 10 seconds of inactivity
     setTimeout(() => {
       setIsPaused(false);
     }, 10000);
@@ -102,7 +106,11 @@ export default function Workflow() {
   const current = WORKFLOW_DATA[activeStep];
 
   return (
-    <section id="workflow" className="py-28 bg-black relative border-b border-surface-border overflow-hidden">
+    <section 
+      ref={sectionRef} 
+      id="workflow" 
+      className="py-28 bg-black relative border-b border-surface-border overflow-hidden select-none"
+    >
       {/* Background Studio Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-brand-darkRed/15 blur-[160px] pointer-events-none rounded-full" />
 
@@ -113,7 +121,7 @@ export default function Workflow() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-border bg-surface/80 backdrop-blur-md mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-                04 - Production Pipeline
+                04 — Production Pipeline
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white uppercase tracking-tight">
@@ -193,15 +201,15 @@ export default function Workflow() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Timer Progress Indicator (Visual cue for auto-play) */}
+          {/* Timer Progress Bar (Only animates when in view and active) */}
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-neutral-900">
-            {!isPaused && (
+            {isInView && !isPaused && (
               <motion.div
-                key={activeStep} // Reset animation on step change
+                key={activeStep} // Restarts linear progress fill upon each step switch
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" }}
-                className="h-full bg-brand-red opacity-50"
+                className="h-full bg-brand-red opacity-60"
               />
             )}
           </div>
@@ -221,7 +229,7 @@ export default function Workflow() {
               initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
             >
               {/* Left Column: Scope & Overview */}
