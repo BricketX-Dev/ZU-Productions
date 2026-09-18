@@ -187,63 +187,61 @@ export const PROJECTS: ProjectItem[] = [
   },
 ];
 
-// Add to TeamMember interface in src/data/content.ts
 export interface TeamMember {
   name: string;
   title: string;
-  roleTag: "DIRECTION" | "PRODUCTION" | "ART DEPT" | "EVENT" | "POST-PROD" | "DIGITAL";
+  roleTag: "DIRECTION" | "OPERATIONS" | "PRODUCTION" | "ART DEPT" | "EVENT" | "POST-PROD" | "DIGITAL";
   image: string;
 }
 
-// Updated TEAM array with direct image paths
 export const TEAM: TeamMember[] = [
   {
     name: "M. Zaeem Siddiqui",
-    title: "Founding Partner | Producer | Director",
+    title: "Founder | Creative Director & Producer",
     roleTag: "DIRECTION",
-    image: "/images/team/zaeem.jpg",
+    image: "/images/team/zaeem.jpeg",
   },
   {
     name: "Umair Farooqui",
-    title: "Founding Partner | Producer | Production",
-    roleTag: "PRODUCTION",
-    image: "/images/team/umair-farooqui.jpg",
+    title: "Co-Founder | Operations Lead",
+    roleTag: "OPERATIONS",
+    image: "/images/team/umair-farooqui.jpeg",
   },
   {
     name: "Mallik Matti",
     title: "Art Director | Production Designer",
     roleTag: "ART DEPT",
-    image: "/images/team/mallik-matti.jpg",
+    image: "/images/team/mallik-matti.jpeg",
   },
   {
     name: "Asif Nicky",
-    title: "Affiliated Partner | Event Management",
+    title: "Contributor | Event Management",
     roleTag: "EVENT",
-    image: "/images/team/asif-nicky.jpg",
+    image: "/images/team/asif-nicky.jpeg",
   },
   {
     name: "Umair Khan",
-    title: "Production Manager",
+    title: "Head of Production",
     roleTag: "PRODUCTION",
-    image: "/images/team/umair-khan.jpg",
+    image: "/images/team/umair-khan.jpeg",
   },
   {
-    name: "Faraz",
-    title: "Head of Digital & Marketing",
+    name: "Faraz Baig",
+    title: "Contributor | Digital Media & Marketing",
     roleTag: "DIGITAL",
-    image: "/images/team/faraz.jpg",
+    image: "/images/team/faraz.jpeg",
   },
   {
     name: "Shahzaib",
-    title: "Post-Production Specialist",
+    title: "Post Production",
     roleTag: "POST-PROD",
-    image: "/images/team/shahzaib.jpg",
+    image: "/images/team/shahzaib.jpeg",
   },
   {
-    name: "Sajjad Hussain",
-    title: "Post-Production Specialist",
+    name: "Sajjad",
+    title: "Post Production & AI",
     roleTag: "POST-PROD",
-    image: "/images/team/sajjad-hussain.jpg",
+    image: "/images/team/sajjad-hussain.jpeg",
   },
 ];
 

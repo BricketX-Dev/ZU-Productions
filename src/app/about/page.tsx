@@ -1,10 +1,11 @@
 // src/app/about/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TEAM, TeamMember } from "@/data/content";
+import { motion, type Variants } from "framer-motion";
+import { TEAM, type TeamMember } from "@/data/content";
 import { 
   Film, 
   Globe2, 
@@ -16,8 +17,29 @@ import {
   Award, 
   Sliders, 
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Disc3
 } from "lucide-react";
+
+const heroContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const heroItemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 const PHILOSOPHY_PILLARS = [
   {
@@ -112,21 +134,23 @@ const INTERNATIONAL_PROJECTS = [
   },
 ];
 
-function AboutTeamCard({ member }: { member: TeamMember }) {
+function AboutTeamCard({ member, idx }: { member: TeamMember; idx: number }) {
   const [imgError, setImgError] = useState(false);
+  const indexFormatted = String(idx + 1).padStart(2, "0");
 
   return (
-    <div className="group relative h-[360px] sm:h-[400px] rounded-2xl bg-neutral-950 border border-surface-border overflow-hidden flex flex-col justify-between p-6 hover:border-brand-red/60 transition-all duration-500 hover:shadow-2xl hover:shadow-black">
-      {/* Background Member Portrait */}
-      <div className="absolute inset-0 z-0">
+    <div className="group relative h-[440px] sm:h-[480px] rounded-2xl bg-neutral-950 border border-neutral-850 overflow-hidden flex flex-col justify-between p-6 transition-all duration-500 hover:border-brand-red/60 hover:shadow-2xl hover:shadow-brand-dark-red/15">
+      {/* 1. CINEMA TALENT PORTRAIT */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         {member.image && !imgError ? (
           <Image
             src={member.image}
             alt={member.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-top grayscale contrast-125 opacity-35 group-hover:opacity-85 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+            className="object-cover object-top brightness-[0.92] contrast-[1.05] transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
             onError={() => setImgError(true)}
+            priority={idx < 4}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center opacity-10">
@@ -134,63 +158,172 @@ function AboutTeamCard({ member }: { member: TeamMember }) {
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/40 pointer-events-none" />
-        <div className="absolute inset-0 bg-radial-vignette opacity-90 pointer-events-none" />
+        {/* Ambient Film Vignette & Contrast Control */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-vignette opacity-70 pointer-events-none" />
       </div>
 
-      {/* Reticles */}
-      <div className="absolute top-3 left-3 w-2 h-2 border-t border-l border-neutral-700 pointer-events-none z-10 opacity-40 group-hover:opacity-100 group-hover:border-brand-accent transition-all" />
-      <div className="absolute top-3 right-3 w-2 h-2 border-t border-r border-neutral-700 pointer-events-none z-10 opacity-40 group-hover:opacity-100 group-hover:border-brand-accent transition-all" />
-      <div className="absolute bottom-3 left-3 w-2 h-2 border-b border-l border-neutral-700 pointer-events-none z-10 opacity-40 group-hover:opacity-100 group-hover:border-brand-accent transition-all" />
-      <div className="absolute bottom-3 right-3 w-2 h-2 border-b border-r border-neutral-700 pointer-events-none z-10 opacity-40 group-hover:opacity-100 group-hover:border-brand-accent transition-all" />
+      {/* 2. CAMERA VIEWFINDER RETICLES */}
+      <div className="absolute top-3 left-3 w-2 h-2 border-t border-l border-white/30 pointer-events-none z-10 group-hover:border-brand-accent transition-colors duration-300" />
+      <div className="absolute top-3 right-3 w-2 h-2 border-t border-r border-white/30 pointer-events-none z-10 group-hover:border-brand-accent transition-colors duration-300" />
+      <div className="absolute bottom-3 left-3 w-2 h-2 border-b border-l border-white/30 pointer-events-none z-10 group-hover:border-brand-accent transition-colors duration-300" />
+      <div className="absolute bottom-3 right-3 w-2 h-2 border-b border-r border-white/30 pointer-events-none z-10 group-hover:border-brand-accent transition-colors duration-300" />
 
-      {/* Top Department Tag */}
+      {/* 3. CARD TOP BAR */}
       <div className="relative z-10 flex items-center justify-between">
-        <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-neutral-800 font-mono text-[9px] uppercase tracking-widest text-neutral-300 group-hover:text-brand-accent group-hover:border-brand-red/40 transition-colors">
+        <span className="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 font-mono text-[9px] uppercase tracking-widest text-neutral-200 group-hover:text-brand-accent group-hover:border-brand-red/40 transition-colors">
           {member.roleTag}
         </span>
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-brand-red group-hover:animate-ping transition-colors" />
+        <div className="flex items-center gap-2 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
+          <span className="font-mono text-[10px] text-neutral-300">
+            #{indexFormatted}
+          </span>
+        </div>
       </div>
 
-      {/* Bottom Bio */}
-      <div className="relative z-10 transform transition-transform duration-300 group-hover:-translate-y-1">
-        <h3 className="font-display text-xl font-black text-white tracking-tight leading-snug">
-          {member.name}
-        </h3>
-        <p className="mt-1.5 text-neutral-300 text-xs font-mono leading-relaxed line-clamp-2">
-          {member.title}
-        </p>
+      {/* 4. CARD BOTTOM: SLATE CREDITS */}
+      <div className="relative z-10 pt-6">
+        <div className="transform transition-transform duration-300 group-hover:-translate-y-1">
+          <span className="text-[9px] font-mono text-brand-accent uppercase tracking-widest block mb-1 font-semibold">
+            KEY PERSONNEL
+          </span>
+          <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+            {member.name}
+          </h3>
+          <p className="mt-1.5 text-neutral-300 text-xs font-mono leading-relaxed line-clamp-2 drop-shadow-sm font-light">
+            {member.title}
+          </p>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[10px] font-mono text-neutral-400">
+          <span>ZU PRODUCTION</span>
+          <span className="text-white group-hover:text-brand-accent uppercase tracking-wider transition-colors font-semibold">
+            ROSTER
+          </span>
+        </div>
       </div>
     </div>
   );
 }
 
 export default function AboutPage() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <div className="pt-24 pb-28 bg-black text-white select-none">
-      {/* 1. HERO / MANIFESTO */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-b border-surface-border relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand-dark-red/15 blur-[160px] pointer-events-none rounded-full" />
+      
+      {/* 1. EDITORIAL PRODUCTION SCREEN HERO */}
+      <section className="relative border-b border-surface-border overflow-hidden">
+        {/* Background Ambient Video Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <video
+            ref={videoRef}
+            src="/videos/about-bg.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-35 filter contrast-125 brightness-90 scale-105"
+          />
+          {/* Dual Multi-Stop Linear Masks */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/85 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+          <div className="absolute inset-0 bg-radial-vignette opacity-80" />
+        </div>
 
-        <div className="max-w-4xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-6">
-            <Film className="w-3 h-3 text-brand-accent" />
-            <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-              Studio Manifesto
-            </span>
+        {/* Ambient Dark-Red Optical Flare */}
+        <div className="absolute top-1/4 left-1/3 w-[650px] h-[350px] bg-brand-dark-red/15 blur-[170px] pointer-events-none rounded-full" />
+
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24 relative z-10">
+          {/* Top Telemetry Header Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-12 border-b border-neutral-800/80 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
+              <span className="text-neutral-300 font-semibold">STUDIO DIRECTORY</span>
+              <span className="text-neutral-700">|</span>
+              <span>CINEMATIC ARCHITECTURE & TECHNICAL RIGOR</span>
+            </div>
+            <div className="flex items-center gap-4 text-neutral-400">
+              <span>EST. KARACHI, PK</span>
+              <span className="text-neutral-700">•</span>
+              <span>INTERNATIONAL PIPELINES</span>
+            </div>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight leading-[1.08]">
-            An Idea Is Only As Strong As Its Execution.
-          </h1>
+          {/* Split Two-Column Editorial Layout */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={heroContainerVariants}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+          >
+            {/* Left Column: Primary Manifesto Headline */}
+            <div className="lg:col-span-7 space-y-6">
+              <motion.div variants={heroItemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface/90 backdrop-blur-md">
+                <Film className="w-3 h-3 text-brand-accent" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300">
+                  Studio Manifesto
+                </span>
+              </motion.div>
 
-          <p className="mt-8 text-neutral-300 text-lg sm:text-xl font-light leading-relaxed">
-            ZU Production is a Pakistan-based creative production company delivering complete, end-to-end visual execution across film, commercial television, large-scale events, digital campaigns, and live broadcast pipelines.
-          </p>
+              <motion.h1
+                variants={heroItemVariants}
+                className="font-display text-4xl sm:text-6xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] text-white"
+              >
+                An Idea Is Only As Strong{" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-brand-accent">
+                  As Its Execution.
+                </span>
+              </motion.h1>
 
-          <p className="mt-4 text-neutral-400 text-sm sm:text-base leading-relaxed font-light">
-            We unite creative vision with engineering discipline to convert raw concepts into polished visual experiences. From concept development and logistics planning to physical production and master color grading, our capabilities adapt across diverse formats, scales, and environments.
-          </p>
+              <motion.p variants={heroItemVariants} className="text-neutral-200 text-base sm:text-lg font-light leading-relaxed max-w-2xl pt-2">
+                ZU Production is a Pakistan-based creative production company delivering complete, end-to-end visual execution across film, commercial television, large-scale events, digital campaigns, and live broadcast pipelines.
+              </motion.p>
+
+              <motion.p variants={heroItemVariants} className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-light max-w-2xl">
+                We unite creative vision with engineering discipline to convert raw concepts into polished visual experiences. From concept development and logistics planning to physical production and master color grading, our capabilities adapt across diverse formats, scales, and environments.
+              </motion.p>
+            </div>
+
+            {/* Right Column: Architectural Telemetry Slate */}
+            <motion.div variants={heroItemVariants} className="lg:col-span-5 space-y-4 lg:pt-8">
+              <div className="rounded-2xl bg-neutral-950/80 border border-neutral-800/80 p-6 backdrop-blur-xl relative overflow-hidden space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-neutral-900 font-mono text-[10px] uppercase text-neutral-400">
+                  <span className="flex items-center gap-1.5 font-bold text-white">
+                    <Disc3 className="w-3.5 h-3.5 text-brand-red animate-spin" />
+                    CORE DISCIPLINES
+                  </span>
+                  <span>SYNCED PIPELINE</span>
+                </div>
+
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
+                    <span className="text-neutral-400">Cinematography & Lighting</span>
+                    <span className="text-white font-medium">4K DCI RAW</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
+                    <span className="text-neutral-400">Multi-Camera Live Setup</span>
+                    <span className="text-white font-medium">Up to 12 Feeds</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
+                    <span className="text-neutral-400">Color Grading Suite</span>
+                    <span className="text-white font-medium">DaVinci Resolve</span>
+                  </div>
+                  <div className="flex items-center justify-between py-1.5">
+                    <span className="text-neutral-400">Broadcast Compliance</span>
+                    <span className="text-white font-medium">EBU R128 Loudness</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-neutral-900 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                  <span>DEPLOYABLE TERRITORIES</span>
+                  <span className="text-brand-accent font-semibold">PK • UAE • UK • SG • MY</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -237,7 +370,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. WHY WORK WITH US (INTEGRATED ADVANTAGES) */}
+      {/* 3. WHY WORK WITH US */}
       <section className="max-w-7xl mx-auto px-6 py-24 border-b border-surface-border">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
@@ -281,7 +414,7 @@ export default function AboutPage() {
             );
           })}
 
-          {/* Quick RFP Link Tile */}
+          {/* Turnkey Guarantee Tile */}
           <div className="p-8 rounded-2xl bg-gradient-to-br from-neutral-900 via-neutral-950 to-brand-dark-red/30 border border-brand-red/30 flex flex-col justify-between crimson-glow">
             <div>
               <div className="p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-brand-accent w-fit mb-6">
@@ -298,7 +431,7 @@ export default function AboutPage() {
             <div className="mt-8">
               <Link
                 href="/contact"
-                className="w-full inline-flex justify-center items-center gap-2 py-3 rounded-xl bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold transition-all"
+                className="w-full inline-flex justify-center items-center gap-2 py-3.5 rounded-xl bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold transition-all"
               >
                 <span>Commission Studio</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -364,13 +497,14 @@ export default function AboutPage() {
           </p>
         </div>
 
+        {/* Talent Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TEAM.map((member) => (
-            <AboutTeamCard key={member.name} member={member} />
+          {TEAM.map((member, idx) => (
+            <AboutTeamCard key={member.name} member={member} idx={idx} />
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom Slate CTA */}
         <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-neutral-950 border border-surface-border flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="font-display text-2xl font-bold uppercase text-white">
@@ -382,13 +516,14 @@ export default function AboutPage() {
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all shrink-0"
           >
             <span>Initiate Project Brief</span>
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
+
     </div>
   );
 }
