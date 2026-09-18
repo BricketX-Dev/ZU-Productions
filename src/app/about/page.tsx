@@ -225,7 +225,7 @@ export default function AboutPage() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-70 filter contrast-125 brightness-90 scale-105"
+            className="w-full h-full object-cover filter contrast-125 brightness-90 scale-105"
           />
           {/* Dual Multi-Stop Linear Masks */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/85 to-black/70" />
