@@ -388,7 +388,7 @@ export default function Navbar() {
               href="/contact"
               className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs uppercase tracking-widest font-bold font-mono transition-all duration-300 crimson-glow hover:scale-[1.03]"
             >
-              <span>Initiate RFP</span>
+              <span>Request a Quote</span>
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Link>
           </nav>
@@ -399,7 +399,7 @@ export default function Navbar() {
               href="/contact"
               className="px-3.5 py-1.5 rounded-full bg-brand-red text-white text-[10px] font-mono font-bold uppercase tracking-wider crimson-glow"
             >
-              RFP Wire
+              Request a Quote
             </Link>
             <button
               type="button"
@@ -554,7 +554,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="w-full inline-flex justify-center items-center gap-2 py-3.5 rounded-xl bg-brand-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow"
               >
-                <span>Initiate Project RFP</span>
+                <span>Request a Quote</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
 

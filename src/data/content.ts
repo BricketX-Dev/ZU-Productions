@@ -217,7 +217,7 @@ export const TEAM: TeamMember[] = [
     name: "Asif Nicky",
     title: "Contributor | Event Management",
     roleTag: "EVENT",
-    image: "/images/team/asif-nicky.jpeg",
+    image: "/images/team/asif-nicky1.jpeg",
   },
   {
     name: "Umair Khan",

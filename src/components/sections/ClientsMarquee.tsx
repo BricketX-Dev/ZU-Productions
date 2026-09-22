@@ -10,14 +10,14 @@ export const CLIENT_LOGOS = [
   { name: "News One", src: "/images/clients/newsone.png" },
   { name: "TV One", src: "/images/clients/tvone.png" },
   { name: "Universal Brothers", src: "/images/clients/universal-brothers.png" },
-  { name: "Ahmed Bukhatir", src: "/images/clients/ahmed-bukhatir.jpeg" },
+  { name: "Ahmed Bukhatir", src: "/images/clients/ahmed-bukhatir.png" },
   { name: "PTPL", src: "/images/clients/ptpl.png" },
   { name: "Naeem Foundation", src: "/images/clients/naeem-foundation.png" },
   { name: "Jamia Binoria", src: "/images/clients/jamia-binoria.png" },
-  { name: "Jetour", src: "/images/clients/jetour.jpeg" },
-  { name: "Amax Travel", src: "/images/clients/amax-travel.jpeg" },
-  { name: "Muller & Phipps", src: "/images/clients/muller-phipps.jpeg" },
-  { name: "Shed Foundation", src: "/images/clients/shed-foundation.jpg" },
+  { name: "Jetour", src: "/images/clients/jetour1.png" },
+  { name: "Amax Travel", src: "/images/clients/amax-travel.png" },
+  { name: "Muller & Phipps", src: "/images/clients/muller-phipps.png" },
+  { name: "Shed Foundation", src: "/images/clients/shed-foundation.png" },
 
 
 ];
