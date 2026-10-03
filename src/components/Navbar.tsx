@@ -561,7 +561,7 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-3 pt-2 text-[10px] font-mono text-neutral-500">
                 <div className="flex items-center gap-1.5 truncate">
                   <Mail className="w-3 h-3 text-brand-red shrink-0" />
-                  <span className="truncate">contact@zuproduction.com</span>
+                  <span className="truncate">contact@zuproduction.pk</span>
                 </div>
                 <div className="flex items-center gap-1.5 justify-end">
                   <MapPin className="w-3 h-3 text-brand-red shrink-0" />

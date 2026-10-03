@@ -51,7 +51,7 @@ export const BRAND: BrandConfig = {
   location: "Pakistan-based Creative Production Company",
   description:
     "Delivering integrated visual solutions across film, television commercials, corporate communication, high-profile events, digital media, live broadcast pipelines, and master post-production.",
-  contactEmail: "contact@zuproduction.com",
+  contactEmail: "contact@zuproduction.pk",
   headquarters: "Karachi, Pakistan (Deploying Worldwide)",
 };
 

@@ -121,10 +121,10 @@ export default function Contact() {
                     Email
                   </span>
                   <a
-                    href="mailto:contact@zuproduction.com"
+                    href="mailto:contact@zuproduction.pk"
                     className="text-xs sm:text-sm text-neutral-200 hover:text-white font-medium transition-colors"
                   >
-                    contact@zuproduction.com
+                    contact@zuproduction.pk
                   </a>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function Contact() {
                     Website
                   </span>
                   <span className="text-xs sm:text-sm text-neutral-200 font-medium">
-                    www.zuproduction.com
+                    www.zuproduction.pk
                   </span>
                 </div>
               </div>

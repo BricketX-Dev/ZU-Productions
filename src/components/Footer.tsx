@@ -123,7 +123,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-3">
               <a
-                href="mailto:contact@zuproduction.com"
+                href="mailto:contact@zuproduction.pk"
                 className="group p-3 rounded-xl bg-surface/70 border border-surface-border hover:border-brand-red/50 transition-colors flex items-center gap-3 block"
               >
                 <div className="p-2 rounded-lg bg-neutral-900 text-brand-accent group-hover:bg-brand-red group-hover:text-white transition-colors">
@@ -134,7 +134,7 @@ export default function Footer() {
                     Executive RFP Inquiries
                   </span>
                   <span className="text-xs text-white font-medium truncate block group-hover:text-brand-accent transition-colors">
-                    contact@zuproduction.com
+                    contact@zuproduction.pk
                   </span>
                 </div>
               </a>
