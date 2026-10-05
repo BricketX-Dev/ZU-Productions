@@ -139,7 +139,7 @@ function AboutTeamCard({ member, idx }: { member: TeamMember; idx: number }) {
   const indexFormatted = String(idx + 1).padStart(2, "0");
 
   return (
-    <div className="group relative h-[440px] sm:h-[480px] rounded-2xl bg-neutral-950 border border-neutral-850 overflow-hidden flex flex-col justify-between p-6 transition-all duration-500 hover:border-brand-red/60 hover:shadow-2xl hover:shadow-brand-dark-red/15">
+    <div className="group relative h-[420px] xs:h-[450px] sm:h-[480px] rounded-2xl bg-neutral-950 border border-neutral-850 overflow-hidden flex flex-col justify-between p-5 sm:p-6 transition-all duration-500 hover:border-brand-red/60 hover:shadow-2xl hover:shadow-brand-dark-red/15">
       {/* 1. CINEMA TALENT PORTRAIT */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {member.image && !imgError ? (
@@ -147,7 +147,7 @@ function AboutTeamCard({ member, idx }: { member: TeamMember; idx: number }) {
             src={member.image}
             alt={member.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover object-top brightness-[0.92] contrast-[1.05] transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
             onError={() => setImgError(true)}
             priority={idx < 4}
@@ -189,15 +189,15 @@ function AboutTeamCard({ member, idx }: { member: TeamMember; idx: number }) {
           <span className="text-[9px] font-mono text-brand-accent uppercase tracking-widest block mb-1 font-semibold">
             KEY PERSONNEL
           </span>
-          <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+          <h3 className="font-display text-lg xs:text-xl sm:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-md">
             {member.name}
           </h3>
-          <p className="mt-1.5 text-neutral-300 text-xs font-mono leading-relaxed line-clamp-2 drop-shadow-sm font-light">
+          <p className="mt-1 text-neutral-300 text-[11px] sm:text-xs font-mono leading-relaxed line-clamp-2 drop-shadow-sm font-light">
             {member.title}
           </p>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[10px] font-mono text-neutral-400">
+        <div className="mt-3.5 sm:mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[10px] font-mono text-neutral-400">
           <span>ZU PRODUCTION</span>
           <span className="text-white group-hover:text-brand-accent uppercase tracking-wider transition-colors font-semibold">
             ROSTER
@@ -212,7 +212,7 @@ export default function AboutPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <div className="pt-24 pb-28 bg-black text-white select-none">
+    <div className="pt-20 sm:pt-24 pb-20 sm:pb-28 bg-black text-white select-none">
       
       {/* 1. EDITORIAL PRODUCTION SCREEN HERO */}
       <section className="relative border-b border-surface-border overflow-hidden">
@@ -236,19 +236,19 @@ export default function AboutPage() {
         {/* Ambient Dark-Red Optical Flare */}
         <div className="absolute top-1/4 left-1/3 w-[650px] h-[350px] bg-brand-dark-red/15 blur-[170px] pointer-events-none rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-20 pb-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-10 pt-12 sm:pt-20 pb-16 sm:pb-24 relative z-10">
           {/* Top Telemetry Header Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-12 border-b border-neutral-800/80 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 pb-4 sm:pb-6 mb-8 sm:mb-12 border-b border-neutral-800/80 font-mono text-[9px] sm:text-[10px] text-neutral-500 uppercase tracking-widest">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
-              <span className="text-neutral-300 font-semibold">STUDIO DIRECTORY</span>
-              <span className="text-neutral-700">|</span>
-              <span>CINEMATIC ARCHITECTURE & TECHNICAL RIGOR</span>
+              <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse shrink-0" />
+              <span className="text-neutral-300 font-semibold truncate">STUDIO DIRECTORY</span>
+              <span className="text-neutral-700 hidden xs:inline">|</span>
+              <span className="hidden xs:inline truncate">CINEMATIC ARCHITECTURE</span>
             </div>
-            <div className="flex items-center gap-4 text-neutral-400">
+            <div className="flex items-center gap-3 sm:gap-4 text-neutral-400">
               <span>EST. KARACHI, PK</span>
               <span className="text-neutral-700">•</span>
-              <span>INTERNATIONAL PIPELINES</span>
+              <span>GLOBAL PIPELINES</span>
             </div>
           </div>
 
@@ -257,12 +257,12 @@ export default function AboutPage() {
             initial="hidden"
             animate="visible"
             variants={heroContainerVariants}
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start"
           >
             {/* Left Column: Primary Manifesto Headline */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-6">
               <motion.div variants={heroItemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface/90 backdrop-blur-md">
-                <Film className="w-3 h-3 text-brand-accent" />
+                <Film className="w-3 h-3 text-brand-accent shrink-0" />
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-300">
                   Studio Manifesto
                 </span>
@@ -270,7 +270,7 @@ export default function AboutPage() {
 
               <motion.h1
                 variants={heroItemVariants}
-                className="font-display text-4xl sm:text-6xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] text-white"
+                className="font-display text-3xl xs:text-4xl sm:text-6xl lg:text-6xl font-black uppercase tracking-tight leading-[1.08] text-white"
               >
                 An Idea Is Only As Strong{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-brand-accent">
@@ -278,7 +278,7 @@ export default function AboutPage() {
                 </span>
               </motion.h1>
 
-              <motion.p variants={heroItemVariants} className="text-neutral-200 text-base sm:text-lg font-light leading-relaxed max-w-2xl pt-2">
+              <motion.p variants={heroItemVariants} className="text-neutral-200 text-sm sm:text-lg font-light leading-relaxed max-w-2xl pt-1 sm:pt-2">
                 ZU Production is a Pakistan-based creative production company delivering complete, end-to-end visual execution across film, commercial television, large-scale events, digital campaigns, and live broadcast pipelines.
               </motion.p>
 
@@ -288,36 +288,36 @@ export default function AboutPage() {
             </div>
 
             {/* Right Column: Architectural Telemetry Slate */}
-            <motion.div variants={heroItemVariants} className="lg:col-span-5 space-y-4 lg:pt-8">
-              <div className="rounded-2xl bg-neutral-950/80 border border-neutral-800/80 p-6 backdrop-blur-xl relative overflow-hidden space-y-5">
+            <motion.div variants={heroItemVariants} className="lg:col-span-5 space-y-4 lg:pt-8 w-full">
+              <div className="rounded-2xl bg-neutral-950/80 border border-neutral-800/80 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden space-y-4 sm:space-y-5">
                 <div className="flex items-center justify-between pb-3 border-b border-neutral-900 font-mono text-[10px] uppercase text-neutral-400">
                   <span className="flex items-center gap-1.5 font-bold text-white">
-                    <Disc3 className="w-3.5 h-3.5 text-brand-red animate-spin" />
+                    <Disc3 className="w-3.5 h-3.5 text-brand-red animate-spin shrink-0" />
                     CORE DISCIPLINES
                   </span>
                   <span>SYNCED PIPELINE</span>
                 </div>
 
-                <div className="space-y-3 font-mono text-xs">
+                <div className="space-y-2.5 sm:space-y-3 font-mono text-xs">
                   <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
-                    <span className="text-neutral-400">Cinematography & Lighting</span>
-                    <span className="text-white font-medium">4K DCI RAW</span>
+                    <span className="text-neutral-400 text-[11px] sm:text-xs">Cinematography & Lighting</span>
+                    <span className="text-white font-medium text-[11px] sm:text-xs">4K DCI RAW</span>
                   </div>
                   <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
-                    <span className="text-neutral-400">Multi-Camera Live Setup</span>
-                    <span className="text-white font-medium">Up to 12 Feeds</span>
+                    <span className="text-neutral-400 text-[11px] sm:text-xs">Multi-Camera Live Setup</span>
+                    <span className="text-white font-medium text-[11px] sm:text-xs">Up to 12 Feeds</span>
                   </div>
                   <div className="flex items-center justify-between py-1.5 border-b border-neutral-900/60">
-                    <span className="text-neutral-400">Color Grading Suite</span>
-                    <span className="text-white font-medium">DaVinci Resolve</span>
+                    <span className="text-neutral-400 text-[11px] sm:text-xs">Color Grading Suite</span>
+                    <span className="text-white font-medium text-[11px] sm:text-xs">DaVinci Resolve</span>
                   </div>
                   <div className="flex items-center justify-between py-1.5">
-                    <span className="text-neutral-400">Broadcast Compliance</span>
-                    <span className="text-white font-medium">EBU R128 Loudness</span>
+                    <span className="text-neutral-400 text-[11px] sm:text-xs">Broadcast Compliance</span>
+                    <span className="text-white font-medium text-[11px] sm:text-xs">EBU R128</span>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-neutral-900 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                <div className="pt-3 sm:pt-4 border-t border-neutral-900 flex flex-wrap items-center justify-between gap-1 text-[9px] sm:text-[10px] font-mono text-neutral-500">
                   <span>DEPLOYABLE TERRITORIES</span>
                   <span className="text-brand-accent font-semibold">PK • UAE • UK • SG • MY</span>
                 </div>
@@ -328,13 +328,13 @@ export default function AboutPage() {
       </section>
 
       {/* 2. CREATIVE PHILOSOPHY */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-b border-surface-border">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24 border-b border-surface-border">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-3 sm:gap-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-2 font-semibold">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-1.5 sm:mb-2 font-semibold">
               Creative Philosophy
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
               Beyond The Equipment
             </h2>
           </div>
@@ -343,17 +343,18 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {/* Swipeable snap reel with peek preview on mobile, 5-col grid on lg+ */}
+        <div className="flex lg:grid lg:grid-cols-5 gap-4 overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-pl-5 -mx-5 px-5 lg:mx-0 lg:px-0 pb-4 lg:pb-0 scrollbar-none">
           {PHILOSOPHY_PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="p-6 rounded-2xl bg-surface/80 border border-surface-border flex flex-col justify-between hover:border-brand-red/60 transition-all duration-300 hover:shadow-xl hover:shadow-black"
+              className="w-[82vw] xs:w-[76vw] sm:w-[50vw] lg:w-auto shrink-0 lg:shrink snap-start p-5 sm:p-6 rounded-2xl bg-surface/80 border border-surface-border flex flex-col justify-between hover:border-brand-red/60 transition-all duration-300 hover:shadow-xl hover:shadow-black"
             >
               <div>
-                <span className="text-[9px] font-mono uppercase tracking-widest text-brand-accent block mb-3 font-semibold">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-brand-accent block mb-2 sm:mb-3 font-semibold">
                   {pillar.tagline}
                 </span>
-                <h3 className="font-display text-2xl font-bold uppercase text-white mb-2">
+                <h3 className="font-display text-xl sm:text-2xl font-bold uppercase text-white mb-2">
                   {pillar.title}
                 </h3>
                 <p className="text-neutral-400 text-xs leading-relaxed font-light">
@@ -361,7 +362,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="mt-8 pt-3 border-t border-neutral-900 flex items-center justify-between font-mono text-[9px] text-neutral-600">
+              <div className="mt-6 sm:mt-8 pt-3 border-t border-neutral-900 flex items-center justify-between font-mono text-[9px] text-neutral-600">
                 <span>PILLAR FOCUS</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-neutral-700" />
               </div>
@@ -371,13 +372,13 @@ export default function AboutPage() {
       </section>
 
       {/* 3. WHY WORK WITH US */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-b border-surface-border">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24 border-b border-surface-border">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-3 sm:gap-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-2 font-semibold">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-1.5 sm:mb-2 font-semibold">
               Why ZU Production
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
               Built For Reliability & Scale
             </h2>
           </div>
@@ -386,28 +387,29 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Swipeable snap reel with peek preview on mobile, multi-column grid on md+ */}
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-pl-5 -mx-5 px-5 md:mx-0 md:px-0 pb-4 md:pb-0 scrollbar-none">
           {ADVANTAGES.map((adv) => {
             const Icon = adv.icon;
             return (
               <div
                 key={adv.title}
-                className="group p-8 rounded-2xl bg-surface/60 border border-surface-border hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
+                className="w-[82vw] xs:w-[76vw] sm:w-[60vw] md:w-auto shrink-0 md:shrink snap-start group p-6 sm:p-8 rounded-2xl bg-surface/60 border border-surface-border hover:border-brand-red/50 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-brand-accent w-fit mb-6 group-hover:border-brand-red/40 group-hover:bg-brand-dark-red/20 transition-all">
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-brand-accent w-fit mb-4 sm:mb-6 group-hover:border-brand-red/40 group-hover:bg-brand-dark-red/20 transition-all">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white group-hover:text-neutral-100 transition-colors">
+                  <h3 className="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-white group-hover:text-neutral-100 transition-colors">
                     {adv.title}
                   </h3>
-                  <p className="mt-3 text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
+                  <p className="mt-2.5 sm:mt-3 text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
                     {adv.desc}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-neutral-900/80 flex items-center gap-2 font-mono text-[10px] text-neutral-500">
-                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                <div className="mt-6 sm:mt-8 pt-3 sm:pt-4 border-t border-neutral-900/80 flex items-center gap-2 font-mono text-[10px] text-neutral-500">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
                   <span>PRODUCTION STANDARD</span>
                 </div>
               </div>
@@ -415,26 +417,26 @@ export default function AboutPage() {
           })}
 
           {/* Turnkey Guarantee Tile */}
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-neutral-900 via-neutral-950 to-brand-dark-red/30 border border-brand-red/30 flex flex-col justify-between crimson-glow">
+          <div className="w-[82vw] xs:w-[76vw] sm:w-[60vw] md:w-auto shrink-0 md:shrink snap-start p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-neutral-900 via-neutral-950 to-brand-dark-red/30 border border-brand-red/30 flex flex-col justify-between crimson-glow">
             <div>
-              <div className="p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-brand-accent w-fit mb-6">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-brand-accent w-fit mb-4 sm:mb-6">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-2xl font-black uppercase text-white">
+              <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-white">
                 Turnkey Technical Guarantee
               </h3>
-              <p className="mt-3 text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
+              <p className="mt-2.5 sm:mt-3 text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
                 From raw rushes to master delivery, every stage is executed to cinema DCI and EBU R128 broadcast standards.
               </p>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <Link
                 href="/contact"
-                className="w-full inline-flex justify-center items-center gap-2 py-3.5 rounded-xl bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold transition-all"
+                className="w-full inline-flex justify-center items-center gap-2 py-3 sm:py-3.5 rounded-xl bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold transition-all"
               >
                 <span>Commission Studio</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 shrink-0" />
               </Link>
             </div>
           </div>
@@ -442,34 +444,34 @@ export default function AboutPage() {
       </section>
 
       {/* 4. INTERNATIONAL EXPERIENCE */}
-      <section className="max-w-7xl mx-auto px-6 py-24 border-b border-surface-border">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 space-y-5">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24 border-b border-surface-border">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="lg:col-span-5 space-y-3 sm:space-y-5">
             <div className="inline-flex items-center gap-2 text-brand-accent font-mono text-[10px] uppercase tracking-widest">
-              <Globe2 className="w-3.5 h-3.5" />
+              <Globe2 className="w-3.5 h-3.5 shrink-0" />
               <span>Cross-Border Deployments</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight">
-              Local Heritage. <br /> Global Perspective.
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight">
+              Local Heritage. <br className="hidden sm:inline" /> Global Perspective.
             </h2>
-            <p className="text-neutral-400 text-sm leading-relaxed font-light">
+            <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
               ZU Production brings proven experience working across international requirements, including official music video direction for UAE artist Ahmed Bukhatir, commercial productions in Singapore and Malaysia, and documentary media for UK NGOs.
             </p>
           </div>
 
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
             {INTERNATIONAL_PROJECTS.map((proj) => (
               <div
                 key={proj.title}
-                className="p-6 rounded-2xl bg-surface/60 border border-surface-border hover:border-neutral-700 transition-colors"
+                className="p-5 sm:p-6 rounded-2xl bg-surface/60 border border-surface-border hover:border-neutral-700 transition-colors"
               >
-                <span className="text-brand-accent font-mono text-[10px] uppercase tracking-widest block mb-2 font-semibold">
+                <span className="text-brand-accent font-mono text-[10px] uppercase tracking-widest block mb-1.5 sm:mb-2 font-semibold">
                   {proj.region}
                 </span>
-                <h4 className="font-display text-lg font-bold text-white mb-1">
+                <h4 className="font-display text-base sm:text-lg font-bold text-white mb-1">
                   {proj.title}
                 </h4>
-                <span className="text-[11px] font-mono text-neutral-500 block mb-2">
+                <span className="text-[10px] sm:text-[11px] font-mono text-neutral-500 block mb-2 truncate">
                   {proj.scope}
                 </span>
                 <p className="text-neutral-400 text-xs leading-relaxed font-light">
@@ -482,13 +484,13 @@ export default function AboutPage() {
       </section>
 
       {/* 5. EXECUTIVE LEADERSHIP & TEAM ROSTER */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-3 sm:gap-6">
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-2 font-semibold">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block mb-1.5 sm:mb-2 font-semibold">
               The Collective
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight">
               Executive Leadership & Team
             </h2>
           </div>
@@ -497,29 +499,34 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Talent Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Swipeable snap reel with peek preview on mobile, responsive multi-column grid on sm+ */}
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory scroll-pl-5 -mx-5 px-5 sm:mx-0 sm:px-0 pb-4 sm:pb-0 scrollbar-none">
           {TEAM.map((member, idx) => (
-            <AboutTeamCard key={member.name} member={member} idx={idx} />
+            <div
+              key={member.name}
+              className="w-[82vw] xs:w-[76vw] sm:w-auto shrink-0 sm:shrink snap-start h-auto"
+            >
+              <AboutTeamCard member={member} idx={idx} />
+            </div>
           ))}
         </div>
 
         {/* Bottom Slate CTA */}
-        <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-neutral-950 border border-surface-border flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="mt-12 sm:mt-20 p-6 sm:p-12 rounded-2xl sm:rounded-3xl bg-neutral-950 border border-surface-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <h3 className="font-display text-2xl font-bold uppercase text-white">
+            <h3 className="font-display text-xl sm:text-2xl font-bold uppercase text-white leading-tight">
               Ready to mount your next production?
             </h3>
-            <p className="text-neutral-400 text-xs sm:text-sm font-light mt-1">
+            <p className="text-neutral-400 text-xs sm:text-sm font-light mt-1.5 sm:mt-1">
               Connect with our production desk to review crew availability and scheduling.
             </p>
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all shrink-0"
+            className="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl sm:rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all shrink-0"
           >
             <span>Initiate Project Brief</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 shrink-0" />
           </Link>
         </div>
       </section>

@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Play, Film, CheckCircle2, Clock, VideoOff } from "lucide-react";
+import { ArrowLeft, Film, CheckCircle2, VideoOff } from "lucide-react";
 
 interface CaseStudy {
   slug: string;
@@ -54,29 +54,29 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { label: "Delivery", value: "Television & Digital Channels" },
     ],
   },
-"studio-podcast-series": {
-  slug: "studio-podcast-series",
-  title: "The Studio Sessions: Episodic Show & Podcast",
-  client: "Studio Series // Featured on BOL Media Network",
-  category: "Episodic Show / Studio Podcast",
-  location: "Karachi, Pakistan",
-  video: "/videos/projects/podcast.mp4",
-  deliverables: [
-    "Full-Length 4K Multi-Cam Video Master",
-    "Dynamic Short-Form Reel & TikTok Cuts (9:16)",
-    "Clean Broadcast Audio & Multi-Track Stems",
-    "On-Set Lighting Design & Atmospheric Visual Styling",
-  ],
-  synopsis:
-    "An intimate, multi-camera studio series created to bridge deep-form conversations with broadcast television polish. Built for digital streaming audiences and televised segment syndication across BOL Network.",
-  execution:
-    "Deployed a 4-camera setup with continuous tracking, directional soft key lighting, dedicated microphone channels, and real-time vision mixing for rapid turnaround post-production.",
-  techSpecs: [
-    { label: "Camera Package", value: "4-Camera Cinema Rig (4K ISO Capture)" },
-    { label: "Audio Setup", value: "Multi-Track Shure Studio Microphones" },
-    { label: "Mastering Standards", value: "Optimized for YouTube & Broadcast Streams" },
-  ],
-},
+  "studio-podcast-series": {
+    slug: "studio-podcast-series",
+    title: "The Studio Sessions: Episodic Show & Podcast",
+    client: "Studio Series // Featured on BOL Media Network",
+    category: "Episodic Show / Studio Podcast",
+    location: "Karachi, Pakistan",
+    video: "/videos/projects/podcast.mp4",
+    deliverables: [
+      "Full-Length 4K Multi-Cam Video Master",
+      "Dynamic Short-Form Reel & TikTok Cuts (9:16)",
+      "Clean Broadcast Audio & Multi-Track Stems",
+      "On-Set Lighting Design & Atmospheric Visual Styling",
+    ],
+    synopsis:
+      "An intimate, multi-camera studio series created to bridge deep-form conversations with broadcast television polish. Built for digital streaming audiences and televised segment syndication across BOL Network.",
+    execution:
+      "Deployed a 4-camera setup with continuous tracking, directional soft key lighting, dedicated microphone channels, and real-time vision mixing for rapid turnaround post-production.",
+    techSpecs: [
+      { label: "Camera Package", value: "4-Camera Cinema Rig (4K ISO Capture)" },
+      { label: "Audio Setup", value: "Multi-Track Shure Studio Microphones" },
+      { label: "Mastering Standards", value: "Optimized for YouTube & Broadcast Streams" },
+    ],
+  },
   "ptpl-anthem": {
     slug: "ptpl-anthem",
     title: "PTPL Anthem & Promotional Campaign",
@@ -160,49 +160,50 @@ export default async function CaseStudyPage({ params }: Props) {
   }
 
   return (
-    <div className="pt-24 pb-28 bg-black text-white min-h-screen">
+    <div className="pt-20 sm:pt-24 pb-20 sm:pb-28 bg-black text-white min-h-screen select-none">
       {/* Navigation Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-6 py-6 border-b border-surface-border">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 py-4 sm:py-6 border-b border-surface-border">
         <Link
           href="/work"
           className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
           <span>Back to Selected Works</span>
         </Link>
       </div>
 
       {/* Header Info */}
-      <section className="max-w-7xl mx-auto px-6 py-12 border-b border-surface-border">
-        <div className="max-w-4xl space-y-4">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-8 sm:py-12 border-b border-surface-border">
+        <div className="max-w-4xl space-y-3 sm:space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface">
-            <Film className="w-3 h-3 text-brand-red" />
+            <Film className="w-3 h-3 text-brand-red shrink-0" />
             <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
               {project.category}
             </span>
           </div>
 
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
+          <h1 className="font-display text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight">
             {project.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-6 pt-2 font-mono text-xs text-neutral-400">
+          {/* Responsive Metadata Row: 2-column grid on mobile, horizontal flow on sm+ */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-4 sm:gap-6 pt-2 font-mono text-xs text-neutral-400 border-t border-neutral-900 sm:border-0 mt-3 sm:mt-0">
             <div>
-              <span className="text-neutral-600 block text-[10px] uppercase">Client</span>
-              <span className="text-neutral-200 font-semibold">{project.client}</span>
+              <span className="text-neutral-500 block text-[9px] sm:text-[10px] uppercase tracking-wider">Client</span>
+              <span className="text-neutral-200 font-semibold text-xs sm:text-sm block truncate">{project.client}</span>
             </div>
             <div className="h-6 w-px bg-neutral-800 hidden sm:block" />
             <div>
-              <span className="text-neutral-600 block text-[10px] uppercase">Territory</span>
-              <span className="text-neutral-200 font-semibold">{project.location}</span>
+              <span className="text-neutral-500 block text-[9px] sm:text-[10px] uppercase tracking-wider">Territory</span>
+              <span className="text-neutral-200 font-semibold text-xs sm:text-sm block truncate">{project.location}</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Video Master Stage */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="relative aspect-video w-full rounded-2xl border border-surface-border bg-neutral-950 overflow-hidden shadow-2xl flex items-center justify-center">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-6 sm:py-10">
+        <div className="relative aspect-video w-full rounded-xl sm:rounded-2xl border border-surface-border bg-neutral-950 overflow-hidden shadow-2xl flex items-center justify-center">
           {project.video ? (
             <video
               src={project.video}
@@ -211,25 +212,24 @@ export default async function CaseStudyPage({ params }: Props) {
               className="w-full h-full object-contain bg-black"
             />
           ) : (
-            /* Standby UI for projects where video is being archived or edited */
-            <div className="text-center space-y-4 p-8">
-              <div className="w-14 h-14 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mx-auto text-neutral-500">
-                <VideoOff className="w-6 h-6" />
+            <div className="text-center space-y-3 sm:space-y-4 p-5 sm:p-8">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mx-auto text-neutral-500">
+                <VideoOff className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="font-display text-lg font-bold text-white uppercase tracking-wider">
+                <h3 className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-wider">
                   Master Reel In Studio Archive
                 </h3>
-                <p className="text-neutral-400 text-xs max-w-sm mx-auto font-mono">
+                <p className="text-neutral-400 text-xs max-w-sm mx-auto font-mono leading-relaxed">
                   Full broadcast rushes and archival cut available upon private stakeholder inquiry.
                 </p>
               </div>
               <div className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-surface border border-neutral-700 hover:border-brand-red text-neutral-300 hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-surface border border-neutral-700 hover:border-brand-red text-neutral-300 hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
                 >
-                  Request Private Screening Link
+                  Request Screening Link
                 </Link>
               </div>
             </div>
@@ -238,73 +238,75 @@ export default async function CaseStudyPage({ params }: Props) {
       </section>
 
       {/* Narrative & Specifications Grid */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Narrative Breakdown */}
-          <div className="lg:col-span-8 space-y-10">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-6 sm:py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
+          
+          {/* Left Column: Narrative Breakdown */}
+          <div className="lg:col-span-8 space-y-8 sm:space-y-10">
             <div>
-              <h3 className="font-display text-xl font-bold uppercase tracking-wider text-white mb-3">
+              <h3 className="font-display text-lg sm:text-xl font-bold uppercase tracking-wider text-white mb-2 sm:mb-3">
                 Project Synopsis
               </h3>
-              <p className="text-neutral-300 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-neutral-300 text-xs sm:text-base leading-relaxed font-light">
                 {project.synopsis}
               </p>
             </div>
 
             <div>
-              <h3 className="font-display text-xl font-bold uppercase tracking-wider text-white mb-3">
+              <h3 className="font-display text-lg sm:text-xl font-bold uppercase tracking-wider text-white mb-2 sm:mb-3">
                 Technical Execution
               </h3>
-              <p className="text-neutral-300 text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-neutral-300 text-xs sm:text-base leading-relaxed font-light">
                 {project.execution}
               </p>
             </div>
 
             <div>
-              <h3 className="font-display text-xl font-bold uppercase tracking-wider text-white mb-4">
+              <h3 className="font-display text-lg sm:text-xl font-bold uppercase tracking-wider text-white mb-3 sm:mb-4">
                 Delivered Assets
               </h3>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                 {project.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-sm text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-brand-red shrink-0" />
-                    <span>{item}</span>
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-brand-red shrink-0 mt-0.5" />
+                    <span className="leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* Right: Studio Metadata Sidebar */}
+          {/* Right Column: Studio Metadata Sidebar */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="p-6 rounded-xl bg-surface border border-surface-border space-y-5">
-              <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-400 pb-3 border-b border-neutral-800 font-bold">
+            <div className="p-5 sm:p-6 rounded-2xl bg-surface border border-surface-border space-y-4 sm:space-y-5">
+              <h4 className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neutral-400 pb-3 border-b border-neutral-800 font-bold">
                 Camera & Master Standards
               </h4>
 
               <div className="space-y-3">
                 {project.techSpecs.map((spec, i) => (
-                  <div key={i} className="pb-2">
+                  <div key={i} className="pb-2.5 border-b border-neutral-900/60 last:border-0 last:pb-0">
                     <span className="text-[10px] font-mono uppercase text-neutral-500 block">
                       {spec.label}
                     </span>
-                    <span className="text-xs text-neutral-200 font-semibold">
+                    <span className="text-xs text-neutral-200 font-semibold block mt-0.5">
                       {spec.value}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-neutral-800">
+              <div className="pt-3 sm:pt-4 border-t border-neutral-800">
                 <Link
                   href="/contact"
-                  className="w-full inline-flex justify-center items-center py-3 rounded-lg bg-brand-red hover:bg-brand-darkRed text-white text-xs font-mono uppercase tracking-widest font-bold transition-colors crimson-glow"
+                  className="w-full inline-flex justify-center items-center py-3.5 sm:py-3 rounded-xl bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold transition-colors crimson-glow"
                 >
                   Commission Similar Project
                 </Link>
               </div>
             </div>
           </div>
+
         </div>
       </section>
     </div>
