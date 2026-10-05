@@ -206,24 +206,30 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8"
+            onClick={handleCloseShowreel}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8 cursor-pointer"
           >
             {/* Close Button */}
             <button
-              onClick={handleCloseShowreel}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCloseShowreel();
+              }}
               className="absolute top-6 right-6 p-3 rounded-full bg-neutral-900/80 border border-neutral-700 text-neutral-300 hover:text-white hover:border-brand-red transition-colors cursor-pointer z-50"
               aria-label="Close Showreel"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Player Card */}
+            {/* Modal Player Card (stopPropagation prevents outside click close) */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-surface-border bg-black shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-surface-border bg-black shadow-2xl relative cursor-default"
             >
               <video
                 ref={showreelVideoRef}
