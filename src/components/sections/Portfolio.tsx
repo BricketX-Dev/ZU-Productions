@@ -14,21 +14,17 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, idx }: ProjectCardProps) {
-  // Directly use the slug and video from the project data
   const destination = project.slug ? `/work/${project.slug}` : "/contact";
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Smooth hover play/pause handlers
   const handleMouseEnter = () => {
     if (videoRef.current) {
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch(() => {
-            // Autoplay policy prevented playback, ignore safely
-          });
+          .catch(() => {});
       }
     }
   };
@@ -36,7 +32,7 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
   const handleMouseLeave = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0; // Reset preview to first frame
+      videoRef.current.currentTime = 0;
       setIsPlaying(false);
     }
   };
@@ -48,11 +44,11 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.35, delay: idx * 0.04 }}
-      className="group relative rounded-2xl bg-surface/80 border border-surface-border hover:border-brand-red/60 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-black"
+      className="group relative h-full rounded-2xl bg-surface/80 border border-surface-border hover:border-brand-red/60 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-black"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link href={destination} className="block flex-1 flex flex-col justify-between">
+      <Link href={destination} className="flex-1 flex flex-col justify-between">
         <div>
           {/* 16:9 Cinema Viewfinder Frame */}
           <div className="relative aspect-[16/9] w-full bg-neutral-950 border-b border-neutral-900 overflow-hidden flex items-center justify-center">
@@ -61,16 +57,16 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
             <div className="absolute bottom-0 left-0 right-0 h-3 bg-black/90 z-20 pointer-events-none" />
 
             {/* Framing Reticles in Corners */}
-            <div className="absolute top-5 left-5 w-2 h-2 border-t border-l border-neutral-600 z-20 pointer-events-none" />
-            <div className="absolute top-5 right-5 w-2 h-2 border-t border-r border-neutral-600 z-20 pointer-events-none" />
-            <div className="absolute bottom-5 left-5 w-2 h-2 border-b border-l border-neutral-600 z-20 pointer-events-none" />
-            <div className="absolute bottom-5 right-5 w-2 h-2 border-b border-r border-neutral-600 z-20 pointer-events-none" />
+            <div className="absolute top-4 left-4 sm:top-5 sm:left-5 w-2 h-2 border-t border-l border-neutral-600 z-20 pointer-events-none" />
+            <div className="absolute top-4 right-4 sm:top-5 sm:right-5 w-2 h-2 border-t border-r border-neutral-600 z-20 pointer-events-none" />
+            <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 w-2 h-2 border-b border-l border-neutral-600 z-20 pointer-events-none" />
+            <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 w-2 h-2 border-b border-r border-neutral-600 z-20 pointer-events-none" />
 
             {/* Top HUD Metadata */}
-            <div className="absolute top-4 left-8 z-20 font-mono text-[9px] text-neutral-400 uppercase tracking-widest pointer-events-none">
+            <div className="absolute top-3.5 left-6 sm:top-4 sm:left-8 z-20 font-mono text-[9px] text-neutral-400 uppercase tracking-widest pointer-events-none">
               {project.aspectRatio || "2.39:1 // SCOPE"}
             </div>
-            <div className="absolute top-4 right-8 z-20 font-mono text-[9px] text-brand-accent uppercase tracking-widest flex items-center gap-1 pointer-events-none">
+            <div className="absolute top-3.5 right-6 sm:top-4 sm:right-8 z-20 font-mono text-[9px] text-brand-accent uppercase tracking-widest flex items-center gap-1 pointer-events-none">
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
                   isPlaying ? "bg-brand-red animate-ping" : "bg-neutral-600"
@@ -81,7 +77,7 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
               </span>
             </div>
 
-            {/* Hover Video Element - Directly using project.video */}
+            {/* Hover Video Element */}
             {project.video ? (
               <video
                 ref={videoRef}
@@ -101,7 +97,7 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
 
             {/* Center Play Icon Overlay */}
             <div
-              className={`relative z-10 w-12 h-12 rounded-full bg-neutral-900/90 border border-neutral-800 flex items-center justify-center transition-all duration-300 ${
+              className={`relative z-10 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-neutral-900/90 border border-neutral-800 flex items-center justify-center transition-all duration-300 ${
                 isPlaying
                   ? "opacity-0 scale-75 pointer-events-none"
                   : "opacity-100 scale-100 text-neutral-400 group-hover:text-white group-hover:bg-brand-red group-hover:border-brand-red group-hover:scale-110 crimson-glow"
@@ -112,21 +108,21 @@ function ProjectCard({ project, idx }: ProjectCardProps) {
           </div>
 
           {/* Content Information */}
-          <div className="p-6">
-            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-accent block mb-2 font-semibold">
+          <div className="p-5 sm:p-6">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-accent block mb-1.5 sm:mb-2 font-semibold">
               {project.category}
             </span>
-            <h3 className="font-display text-xl font-bold text-white group-hover:text-neutral-200 transition-colors">
+            <h3 className="font-display text-lg sm:text-xl font-bold text-white group-hover:text-neutral-200 transition-colors line-clamp-1">
               {project.title}
             </h3>
-            <p className="text-neutral-400 text-xs mt-2 leading-relaxed font-light">
+            <p className="text-neutral-400 text-xs mt-2 leading-relaxed font-light line-clamp-2">
               {project.scope}
             </p>
           </div>
         </div>
 
         {/* Bottom Metadata Trigger */}
-        <div className="px-6 pb-6 pt-3 border-t border-neutral-900/80 flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-neutral-500 group-hover:text-white transition-colors">
+        <div className="px-5 pb-5 pt-3 sm:px-6 sm:pb-6 border-t border-neutral-900/80 flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-neutral-500 group-hover:text-white transition-colors">
           <span className="flex items-center gap-1.5">
             <Eye className="w-3.5 h-3.5 text-neutral-600 group-hover:text-brand-accent transition-colors" />
             <span>{project.slug ? "Case Study" : "Inquire Commission"}</span>
@@ -152,12 +148,12 @@ export default function Portfolio({ isPage = false }: { isPage?: boolean }) {
     <section
       id="work"
       className={`relative border-y border-surface-border bg-black select-none ${
-        isPage ? "py-12" : "py-28"
+        isPage ? "py-12" : "py-24 sm:py-28"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-ping" />
@@ -174,8 +170,8 @@ export default function Portfolio({ isPage = false }: { isPage?: boolean }) {
           </p>
         </div>
 
-        {/* Filter Navigation Bar */}
-        <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-neutral-900">
+        {/* Filter Navigation Bar (Horizontally scrollable on mobile without wrapping clutter) */}
+        <div className="flex items-center gap-2 mb-8 sm:mb-12 pb-4 border-b border-neutral-900 overflow-x-auto scrollbar-none -mx-6 px-6 sm:mx-0 sm:px-0">
           {CATEGORIES.map((tab) => {
             const isActive = activeTab === tab;
             return (
@@ -183,7 +179,7 @@ export default function Portfolio({ isPage = false }: { isPage?: boolean }) {
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`relative px-4 py-2 rounded-full text-xs font-mono tracking-widest uppercase transition-colors cursor-pointer ${
+                className={`relative px-4 py-2 rounded-full text-xs font-mono tracking-widest uppercase transition-colors shrink-0 cursor-pointer ${
                   isActive ? "text-white font-semibold" : "text-neutral-500 hover:text-neutral-300"
                 }`}
               >
@@ -200,11 +196,19 @@ export default function Portfolio({ isPage = false }: { isPage?: boolean }) {
           })}
         </div>
 
-        {/* Dynamic Showcase Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Dynamic Showcase Grid: Peek swipe reel on mobile (84vw card width), standard grid on md+ */}
+        <motion.div
+          layout
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-pl-6 -mx-6 px-6 md:mx-0 md:px-0 pb-6 md:pb-0 scrollbar-none"
+        >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (
-              <ProjectCard key={project.slug || project.title} project={project} idx={idx} />
+              <div
+                key={project.slug || project.title}
+                className="w-[84vw] xs:w-[80vw] sm:w-[70vw] md:w-auto shrink-0 md:shrink snap-start h-auto"
+              >
+                <ProjectCard project={project} idx={idx} />
+              </div>
             ))}
           </AnimatePresence>
         </motion.div>

@@ -232,8 +232,7 @@ export default function Hero() {
                 playsInline
                 className="w-full h-full object-contain bg-black"
               >
-                {/* Place your local video file in public/videos/showreel.mp4 */}
-                <source src="/videos/podcast.mp4" type="video/mp4" />
+                <source src="/videos/projects/podcast.mp4" type="video/mp4" />
                 Your browser does not support HTML5 video playback.
               </video>
             </motion.div>

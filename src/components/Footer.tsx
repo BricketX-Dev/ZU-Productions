@@ -33,13 +33,13 @@ export default function Footer() {
       <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent" />
 
       {/* Main Footer Directory */}
-      <div className="max-w-7xl mx-auto px-6 pt-20 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 pt-12 sm:pt-20 pb-12 sm:pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
           
-          {/* Col 1: Studio Identity, Tagline & Capabilities Manifest (4 Cols) */}
-          <div className="lg:col-span-4 space-y-6">
+          {/* Col 1: Studio Identity & Capabilities Manifest */}
+          <div className="lg:col-span-4 space-y-5 sm:space-y-6">
             <Link href="/" className="inline-block group">
-              <div className="relative h-9 w-32 sm:w-36 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-8 sm:h-9 w-28 sm:w-36 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/images/logo/logo1.png"
                   alt="ZU PRODUCTION"
@@ -51,7 +51,7 @@ export default function Footer() {
               </div>
             </Link>
 
-            {/* Official Studio Tagline */}
+            {/* Studio Tagline */}
             <p className="text-white text-sm sm:text-base font-display font-bold uppercase tracking-tight">
               Creative Production. Powerful Visuals. Meaningful Stories.
             </p>
@@ -70,55 +70,58 @@ export default function Footer() {
             </div>
 
             {/* Global Dispatch Tag */}
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-surface border border-surface-border font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-ping" />
-                <span>Operating Globally // PK, UAE, UK, SG</span>
+            <div className="pt-1 sm:pt-2">
+              <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 py-1.5 rounded-lg bg-surface border border-surface-border font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-ping shrink-0" />
+                <span className="truncate">Operating Globally // PK, UAE, UK, SG</span>
               </div>
             </div>
           </div>
 
-          {/* Col 2: Capabilities Directory (3 Cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-mono text-[11px] uppercase tracking-widest text-white font-bold">
-              Production Capabilities
-            </h4>
-            <ul className="space-y-2.5">
-              {FOOTER_CAPABILITIES.map((cap) => (
-                <li key={cap.name}>
-                  <Link
-                    href={cap.href}
-                    className="text-neutral-400 hover:text-white transition-colors duration-200 block"
-                  >
-                    {cap.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Mobile 2-Column Section for Capabilities & Studio Index */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:contents">
+            {/* Capabilities Directory */}
+            <div className="lg:col-span-3 space-y-3 sm:space-y-4">
+              <h4 className="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white font-bold">
+                Production Capabilities
+              </h4>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs">
+                {FOOTER_CAPABILITIES.map((cap) => (
+                  <li key={cap.name}>
+                    <Link
+                      href={cap.href}
+                      className="text-neutral-400 hover:text-white transition-colors duration-200 block py-0.5 leading-snug"
+                    >
+                      {cap.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Studio Index */}
+            <div className="lg:col-span-2 space-y-3 sm:space-y-4">
+              <h4 className="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white font-bold">
+                Studio Index
+              </h4>
+              <ul className="space-y-2 sm:space-y-2.5 text-xs">
+                {FOOTER_NAVIGATION.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="text-neutral-400 hover:text-white transition-colors duration-200 block py-0.5 leading-snug"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Col 3: Studio Index (2 Cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="font-mono text-[11px] uppercase tracking-widest text-white font-bold">
-              Studio Index
-            </h4>
-            <ul className="space-y-2.5">
-              {FOOTER_NAVIGATION.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-neutral-400 hover:text-white transition-colors duration-200 block"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 4: Dispatch Lines & Booking Hub (3 Cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="font-mono text-[11px] uppercase tracking-widest text-white font-bold">
+          {/* Dispatch Lines & Booking Hub */}
+          <div className="lg:col-span-3 space-y-3 sm:space-y-4">
+            <h4 className="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-white font-bold">
               Direct Production Wire
             </h4>
             <div className="space-y-3">
@@ -126,11 +129,11 @@ export default function Footer() {
                 href="mailto:contact@zuproduction.pk"
                 className="group p-3 rounded-xl bg-surface/70 border border-surface-border hover:border-brand-red/50 transition-colors flex items-center gap-3 block"
               >
-                <div className="p-2 rounded-lg bg-neutral-900 text-brand-accent group-hover:bg-brand-red group-hover:text-white transition-colors">
+                <div className="p-2 rounded-lg bg-neutral-900 text-brand-accent group-hover:bg-brand-red group-hover:text-white transition-colors shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
-                <div className="overflow-hidden">
-                  <span className="text-[10px] font-mono uppercase text-neutral-500 block tracking-wider">
+                <div className="overflow-hidden min-w-0">
+                  <span className="text-[9px] sm:text-[10px] font-mono uppercase text-neutral-500 block tracking-wider">
                     Executive RFP Inquiries
                   </span>
                   <span className="text-xs text-white font-medium truncate block group-hover:text-brand-accent transition-colors">
@@ -143,11 +146,11 @@ export default function Footer() {
                 <div className="p-2 rounded-lg bg-neutral-900 text-brand-accent shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <div>
-                  <span className="text-[10px] font-mono uppercase text-neutral-500 block tracking-wider">
+                <div className="min-w-0">
+                  <span className="text-[9px] sm:text-[10px] font-mono uppercase text-neutral-500 block tracking-wider">
                     Main Production Base
                   </span>
-                  <span className="text-xs text-neutral-300">
+                  <span className="text-xs text-neutral-300 block leading-snug">
                     Karachi, Pakistan (Deploying Worldwide)
                   </span>
                 </div>
@@ -158,24 +161,24 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Sub-Footer Legal & Timecode Rail */}
-      <div className="border-t border-neutral-900 bg-neutral-950/80 py-6 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono text-neutral-500">
-          <div className="flex items-center gap-4">
+      {/* Sub-Footer Legal & Back to Top Rail */}
+      <div className="border-t border-neutral-900 bg-neutral-950/80 py-5 sm:py-6 px-5 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] sm:text-[11px] font-mono text-neutral-500">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-4 text-center sm:text-left">
             <span>© {new Date().getFullYear()} ZU PRODUCTION. ALL RIGHTS RESERVED.</span>
             <span className="hidden md:inline text-neutral-700">|</span>
             <span className="hidden md:inline">CINEMATIC RIGOR & BROADCAST INTEGRITY</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <Link href="/contact" className="hover:text-neutral-300 transition-colors">
               Privacy Policy
             </Link>
-            <span>•</span>
+            <span className="text-neutral-700">•</span>
             <Link href="/contact" className="hover:text-neutral-300 transition-colors">
-              Standard Terms of Production
+              Terms of Production
             </Link>
-            <span>•</span>
+            <span className="text-neutral-700">•</span>
             <button
               type="button"
               onClick={scrollToTop}

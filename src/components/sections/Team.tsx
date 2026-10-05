@@ -23,7 +23,7 @@ function TeamCard({ member, idx }: TeamCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: idx * 0.05 }}
-      className="group relative h-[440px] sm:h-[480px] rounded-2xl bg-neutral-950 border border-neutral-800/80 overflow-hidden flex flex-col justify-between p-6 transition-all duration-500 hover:border-brand-red/60 hover:shadow-2xl hover:shadow-brand-dark-red/10"
+      className="group relative h-[420px] xs:h-[450px] sm:h-[480px] rounded-2xl bg-neutral-950 border border-neutral-800/80 overflow-hidden flex flex-col justify-between p-5 sm:p-6 transition-all duration-500 hover:border-brand-red/60 hover:shadow-2xl hover:shadow-brand-dark-red/10"
     >
       {/* 1. TALENT PORTRAIT */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -32,7 +32,7 @@ function TeamCard({ member, idx }: TeamCardProps) {
             src={member.image}
             alt={member.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover object-top brightness-[0.9] contrast-[1.05] transition-transform duration-700 ease-out group-hover:scale-105 group-hover:brightness-100"
             onError={() => setImgError(true)}
             priority={idx < 4}
@@ -74,16 +74,16 @@ function TeamCard({ member, idx }: TeamCardProps) {
           <span className="text-[9px] font-mono text-brand-accent uppercase tracking-widest block mb-1 font-semibold">
             KEY PERSONNEL
           </span>
-          <h3 className="font-display text-xl sm:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+          <h3 className="font-display text-lg xs:text-xl sm:text-2xl font-black text-white tracking-tight leading-snug drop-shadow-md">
             {member.name}
           </h3>
-          <p className="mt-1.5 text-neutral-300 text-xs font-mono leading-relaxed line-clamp-2 drop-shadow-sm font-light">
+          <p className="mt-1 text-neutral-300 text-[11px] sm:text-xs font-mono leading-relaxed line-clamp-2 drop-shadow-sm font-light">
             {member.title}
           </p>
         </div>
 
         {/* Slate Bottom Border */}
-        <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[10px] font-mono text-neutral-400">
+        <div className="mt-3.5 sm:mt-4 pt-3 border-t border-white/15 flex items-center justify-between text-[10px] font-mono text-neutral-400">
           <span>ZU PRODUCTION</span>
           <span className="text-white group-hover:text-brand-accent uppercase tracking-wider transition-colors font-semibold">
             ROSTER
@@ -96,13 +96,13 @@ function TeamCard({ member, idx }: TeamCardProps) {
 
 export default function Team() {
   return (
-    <section id="team" className="py-28 border-t border-surface-border bg-black relative overflow-hidden select-none">
+    <section id="team" className="py-20 sm:py-28 border-t border-surface-border bg-black relative overflow-hidden select-none">
       {/* Background Studio Glow */}
       <div className="absolute top-1/2 right-1/4 w-[600px] h-[350px] bg-brand-dark-red/15 blur-[160px] pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface mb-3">
               <Film className="w-3 h-3 text-brand-accent" />
@@ -110,7 +110,7 @@ export default function Team() {
                 Production Roster
               </span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
+            <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
               The People Behind The Frame
             </h2>
           </div>
@@ -119,10 +119,15 @@ export default function Team() {
           </p>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Swipeable snap reel with peek preview on mobile, responsive multi-column grid on desktop */}
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory scroll-pl-5 -mx-5 px-5 sm:mx-0 sm:px-0 pb-6 sm:pb-0 scrollbar-none">
           {TEAM.map((member, idx) => (
-            <TeamCard key={member.name} member={member} idx={idx} />
+            <div
+              key={member.name}
+              className="w-[82vw] xs:w-[76vw] sm:w-auto shrink-0 sm:shrink snap-start h-auto"
+            >
+              <TeamCard member={member} idx={idx} />
+            </div>
           ))}
         </div>
       </div>

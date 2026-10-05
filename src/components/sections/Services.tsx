@@ -40,7 +40,7 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
   const Icon = item.icon;
 
   return (
-    <div style={{ perspective: 1000 }}>
+    <div className="h-full" style={{ perspective: 1000 }}>
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -50,7 +50,7 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative group h-full rounded-2xl bg-surface/90 border border-surface-border p-8 flex flex-col justify-between overflow-hidden transition-colors duration-300 hover:border-brand-red/50 hover:shadow-2xl hover:shadow-brand-dark-red/20"
+        className="relative group h-full rounded-2xl bg-surface/90 border border-surface-border p-6 sm:p-8 flex flex-col justify-between overflow-hidden transition-colors duration-300 hover:border-brand-red/50 hover:shadow-2xl hover:shadow-brand-dark-red/20"
       >
         {/* Dynamic Interactive Spotlight Glow */}
         <motion.div
@@ -78,10 +78,10 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
             </span>
           </div>
 
-          <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-neutral-100 transition-colors">
+          <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-neutral-100 transition-colors">
             {item.title}
           </h3>
-          <p className="text-neutral-400 text-sm leading-relaxed mb-6">
+          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6">
             {item.desc}
           </p>
         </div>
@@ -114,7 +114,7 @@ export default function Services() {
       <div className="absolute top-1/2 -left-40 w-96 h-96 bg-brand-dark-red/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
         <div>
           <span className="text-xs font-mono uppercase tracking-widest text-brand-red font-bold">
             02 - Capabilities
@@ -128,10 +128,15 @@ export default function Services() {
         </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Responsive Container: Horizontal swipe snap reel on mobile, multi-column grid on md+ */}
+      <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-pl-6 -mx-6 px-6 md:mx-0 md:px-0 pb-6 md:pb-0 scrollbar-none">
         {SERVICES.map((item) => (
-          <ServiceCard key={item.id} item={item} />
+          <div
+            key={item.id}
+            className="w-[84vw] xs:w-[80vw] sm:w-[70vw] md:w-auto shrink-0 md:shrink snap-start h-auto"
+          >
+            <ServiceCard item={item} />
+          </div>
         ))}
       </div>
     </section>
