@@ -71,6 +71,9 @@ export default function Workflow() {
   const [activeStep, setActiveStep] = useState(0); 
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Dedicated container ref to scroll ONLY the track horizontally, NEVER the screen
+  const trackContainerRef = useRef<HTMLDivElement>(null);
   const stepButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -92,14 +95,20 @@ export default function Workflow() {
     };
   }, [isInView, isPaused, activeStep]);
 
-  // Keep active step scrolled into view on mobile
+  // Keep active step centered ONLY inside the track without moving the page/card
   useEffect(() => {
-    const el = stepButtonRefs.current[activeStep];
-    if (el) {
-      el.scrollIntoView({
+    const container = trackContainerRef.current;
+    const button = stepButtonRefs.current[activeStep];
+
+    if (container && button && window.innerWidth < 768) {
+      const containerWidth = container.offsetWidth;
+      const buttonLeft = button.offsetLeft;
+      const buttonWidth = button.offsetWidth;
+
+      // Scroll strictly within the internal container
+      container.scrollTo({
+        left: buttonLeft - containerWidth / 2 + buttonWidth / 2,
         behavior: "smooth",
-        block: "nearest",
-        inline: "center",
       });
     }
   }, [activeStep]);
@@ -118,14 +127,14 @@ export default function Workflow() {
     <section 
       ref={sectionRef} 
       id="workflow" 
-      className="py-20 sm:py-28 bg-black relative border-b border-surface-border overflow-hidden select-none"
+      className="py-20 sm:py-28 bg-black relative border-b border-surface-border overflow-hidden select-none w-full"
     >
       {/* Background Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[350px] bg-brand-dark-red/15 blur-[160px] pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10 w-full overflow-hidden">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4 sm:gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-4 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-border bg-surface/80 backdrop-blur-md mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
@@ -142,7 +151,7 @@ export default function Workflow() {
           </p>
         </div>
 
-        {/* Mobile Live Phase Pill (Clean readout to prevent label collision) */}
+        {/* Mobile Live Status Pill */}
         <div className="md:hidden flex items-center justify-between pb-3 mb-4 border-b border-neutral-900 font-mono text-[10px] uppercase">
           <span className="text-brand-accent font-bold">
             STAGE {current.step}/06 // {current.name}
@@ -150,12 +159,10 @@ export default function Workflow() {
           <span className="text-neutral-500">TC {current.timecode}</span>
         </div>
 
-        {/* Scrubber Navigation Rail */}
-        <div className="relative mb-8 sm:mb-12">
-          {/* Base Desktop Line */}
+        {/* Track Container Wrapper */}
+        <div className="relative mb-8 sm:mb-12 w-full">
+          {/* Desktop connecting track line */}
           <div className="hidden md:block h-[2px] w-full bg-neutral-800 absolute top-[23px] left-0 z-0" />
-
-          {/* Desktop Fill Bar */}
           <motion.div
             className="hidden md:block h-[2px] bg-gradient-to-r from-brand-dark-red via-brand-red to-brand-accent absolute top-[23px] left-0 z-0"
             initial={false}
@@ -163,8 +170,11 @@ export default function Workflow() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
 
-          {/* Step Button Rail: Horizontal peek reel on mobile, grid on desktop */}
-          <div className="flex md:grid md:grid-cols-6 gap-3 sm:gap-4 md:gap-0 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-pl-5 -mx-5 px-5 sm:mx-0 sm:px-0 pb-3 md:pb-0 scrollbar-none relative z-10">
+          {/* Internal Scroller Rail */}
+          <div
+            ref={trackContainerRef}
+            className="flex md:grid md:grid-cols-6 gap-3 sm:gap-4 md:gap-0 overflow-x-auto md:overflow-visible scrollbar-none pb-2 md:pb-0 relative z-10 w-full"
+          >
             {WORKFLOW_DATA.map((wf, idx) => {
               const isSelected = activeStep === idx;
               const isPassed = activeStep > idx;
@@ -177,7 +187,7 @@ export default function Workflow() {
                   }}
                   type="button"
                   onClick={() => handleStepClick(idx)}
-                  className="flex flex-col items-center group cursor-pointer focus:outline-none shrink-0 snap-start min-w-[70px] sm:min-w-[85px] md:min-w-0"
+                  className="flex flex-col items-center group cursor-pointer focus:outline-none shrink-0 min-w-[65px] sm:min-w-[85px] md:min-w-0"
                 >
                   {/* Pin Node */}
                   <div
@@ -196,7 +206,7 @@ export default function Workflow() {
                     )}
                   </div>
 
-                  {/* Step Name (Hidden on very narrow mobile screens to avoid wrapping; visible on sm+) */}
+                  {/* Step Name */}
                   <div className="mt-2.5 text-center hidden sm:block">
                     <span
                       className={`block text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-colors truncate max-w-[80px] sm:max-w-none ${
@@ -215,9 +225,9 @@ export default function Workflow() {
           </div>
         </div>
 
-        {/* Phase Inspector Card */}
+        {/* Phase Inspector Card - Constrained width and always centered */}
         <div 
-          className="rounded-2xl bg-surface/90 border border-surface-border p-5 sm:p-8 md:p-10 relative overflow-hidden shadow-2xl"
+          className="w-full max-w-full rounded-2xl bg-surface/90 border border-surface-border p-5 sm:p-8 md:p-10 relative overflow-hidden shadow-2xl mx-auto"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
@@ -234,8 +244,8 @@ export default function Workflow() {
             )}
           </div>
 
-          {/* Card Top Metadata (Responsive Stack to prevent clash) */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-1 mb-4 sm:mb-2 font-mono text-[9px] tracking-widest uppercase select-none">
+          {/* Card Top Metadata Header */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-1 mb-3 sm:mb-2 font-mono text-[9px] tracking-widest uppercase select-none">
             <span className="text-neutral-500">
               [ PIPELINE STAGE // {current.step} OF 06 ]
             </span>
@@ -248,11 +258,11 @@ export default function Workflow() {
           <AnimatePresence mode="wait">
             <motion.div
               key={current.step}
-              initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="mt-2 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="mt-2 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start w-full"
             >
               {/* Left Column: Scope & Overview */}
               <div className="lg:col-span-6 space-y-3 sm:space-y-4">
@@ -285,7 +295,7 @@ export default function Workflow() {
               </div>
 
               {/* Right Column: Key Phase Deliverables */}
-              <div className="lg:col-span-6 bg-neutral-950/70 border border-neutral-800/80 rounded-xl p-4 sm:p-6">
+              <div className="lg:col-span-6 bg-neutral-950/70 border border-neutral-800/80 rounded-xl p-4 sm:p-6 w-full">
                 <div className="flex items-center justify-between mb-3 sm:mb-4 pb-2 border-b border-neutral-800">
                   <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-neutral-400 flex items-center gap-2">
                     <Layers className="w-3.5 h-3.5 text-brand-red shrink-0" />
@@ -294,17 +304,17 @@ export default function Workflow() {
                   <span className="text-[9px] sm:text-[10px] font-mono text-neutral-600">VERIFIED</span>
                 </div>
 
-                <ul className="space-y-2.5 sm:space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {current.deliverables.map((item, i) => (
-                    <li key={i} className="flex items-start sm:items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-neutral-200">
-                      <div className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-1.5 sm:mt-0 shrink-0" />
+                    <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-200">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-1.5 shrink-0" />
                       <span className="leading-snug">{item}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Direct Action */}
-                <div className="mt-6 sm:mt-8 pt-3 sm:pt-4 border-t border-neutral-900 flex justify-between items-center">
+                <div className="mt-5 sm:mt-8 pt-3 sm:pt-4 border-t border-neutral-900 flex justify-between items-center">
                   <span className="text-[10px] sm:text-[11px] font-mono text-neutral-500">
                     Ready to discuss this phase?
                   </span>

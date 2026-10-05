@@ -98,21 +98,24 @@ const PRIMARY_LINKS = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [workOpen, setWorkOpen] = useState(false);
-  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
-  const servicesRef = useRef<HTMLDivElement>(null);
-  const workRef = useRef<HTMLDivElement>(null);
 
   // Active route helpers
   const isServicesActive = pathname.startsWith("/services");
   const isWorkActive = pathname.startsWith("/work");
   const isContactActive = pathname === "/contact";
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
+  
+  // Keep the accordion open if currently inside that section's routes
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(isServicesActive);
+  const [mobileWorkOpen, setMobileWorkOpen] = useState(isWorkActive);
+  const [scrolled, setScrolled] = useState(false);
+
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const workRef = useRef<HTMLDivElement>(null);
 
   // Scroll detection for dynamic background treatment
   useEffect(() => {
@@ -123,13 +126,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus on page navigation
+  // Update menu state on route changes
   useEffect(() => {
     setIsOpen(false);
     setServicesOpen(false);
     setWorkOpen(false);
-    setMobileServicesOpen(false);
-    setMobileWorkOpen(false);
+
+    // Keep mobile submenu open if the user is visiting a page inside that section
+    if (pathname.startsWith("/services")) {
+      setMobileServicesOpen(true);
+    } else {
+      setMobileServicesOpen(false);
+    }
+
+    if (pathname.startsWith("/work")) {
+      setMobileWorkOpen(true);
+    } else {
+      setMobileWorkOpen(false);
+    }
   }, [pathname]);
 
   // Lock body scroll when mobile menu is open
@@ -173,16 +187,16 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-        <div className="relative h-10 w-36 sm:h-12 sm:w-48 transition-transform duration-300 group-hover:scale-105">
-          <Image
-            src="/images/logo/logo.png"
-            alt="ZU PRODUCTION"
-            fill
-            sizes="(max-width: 640px) 144px, 192px"
-            priority
-            className="object-contain object-left"
-          />
-        </div>
+            <div className="relative h-10 w-36 sm:h-12 sm:w-48 transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/images/logo/logo.png"
+                alt="ZU PRODUCTION"
+                fill
+                sizes="(max-width: 640px) 144px, 192px"
+                priority
+                className="object-contain object-left"
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -511,7 +525,6 @@ export default function Navbar() {
                 <div className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest font-bold">
                   <Link
                     href="/services"
-                    onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 transition-colors ${
                       isServicesActive
                         ? "text-brand-accent font-extrabold"
@@ -552,7 +565,6 @@ export default function Navbar() {
                     >
                       <Link
                         href="/services"
-                        onClick={() => setIsOpen(false)}
                         className={`block py-1 font-mono text-xs tracking-wider ${
                           pathname === "/services"
                             ? "text-brand-red font-bold"
@@ -570,14 +582,13 @@ export default function Navbar() {
                           <Link
                             key={service.href}
                             href={service.href}
-                            onClick={() => setIsOpen(false)}
-                            className={`flex items-center justify-between py-2 text-xs font-sans border-b border-neutral-950 transition-colors ${
+                            className={`flex items-center justify-between p-2 rounded-lg text-xs font-sans border transition-colors ${
                               isSubActive
-                                ? "text-brand-accent font-semibold"
-                                : "text-neutral-400 hover:text-white"
+                                ? "bg-neutral-900/90 border-brand-red/50 text-white font-medium"
+                                : "border-neutral-950 text-neutral-400 hover:text-white hover:border-neutral-800"
                             }`}
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2.5">
                               <Icon
                                 className={`w-3.5 h-3.5 ${
                                   isSubActive ? "text-brand-red" : "text-neutral-500"
@@ -586,7 +597,7 @@ export default function Navbar() {
                               <span>{service.title}</span>
                             </div>
                             {isSubActive && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
                             )}
                           </Link>
                         );
@@ -607,7 +618,6 @@ export default function Navbar() {
                 <div className="w-full flex items-center justify-between py-2 text-sm font-mono uppercase tracking-widest font-bold">
                   <Link
                     href="/work"
-                    onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 transition-colors ${
                       isWorkActive
                         ? "text-brand-accent font-extrabold"
@@ -648,7 +658,6 @@ export default function Navbar() {
                     >
                       <Link
                         href="/work"
-                        onClick={() => setIsOpen(false)}
                         className={`block py-1 font-mono text-xs tracking-wider ${
                           pathname === "/work"
                             ? "text-brand-red font-bold"
@@ -665,20 +674,19 @@ export default function Navbar() {
                           <Link
                             key={proj.href}
                             href={proj.href}
-                            onClick={() => setIsOpen(false)}
-                            className={`flex items-center justify-between py-2 text-xs font-sans border-b border-neutral-950 transition-colors ${
+                            className={`flex items-center justify-between p-2 rounded-lg text-xs font-sans border transition-colors ${
                               isProjActive
-                                ? "text-brand-accent font-semibold"
-                                : "text-neutral-400 hover:text-white"
+                                ? "bg-neutral-900/90 border-brand-red/50 text-white font-medium"
+                                : "border-neutral-950 text-neutral-400 hover:text-white hover:border-neutral-800"
                             }`}
                           >
                             <span>{proj.title}</span>
                             <div className="flex items-center gap-2">
-                              <span className="text-[9px] font-mono text-neutral-600">
+                              <span className="text-[9px] font-mono text-neutral-500">
                                 {proj.tag}
                               </span>
                               {isProjActive && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-red" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-red shrink-0" />
                               )}
                             </div>
                           </Link>
@@ -697,7 +705,6 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
                     className={`flex items-center justify-between py-2.5 border-b text-sm font-mono uppercase tracking-widest transition-colors ${
                       isActive
                         ? "text-brand-accent font-bold border-brand-red/30 bg-neutral-900/40 -mx-3 px-3 rounded-lg"
@@ -722,7 +729,6 @@ export default function Navbar() {
               {/* Contact Link */}
               <Link
                 href="/contact"
-                onClick={() => setIsOpen(false)}
                 className={`flex items-center justify-between py-2.5 border-b text-sm font-mono uppercase tracking-widest transition-colors ${
                   isContactActive
                     ? "text-brand-accent font-bold border-brand-red/30 bg-neutral-900/40 -mx-3 px-3 rounded-lg"
@@ -747,7 +753,6 @@ export default function Navbar() {
             <div className="pt-6 space-y-4">
               <Link
                 href="/contact"
-                onClick={() => setIsOpen(false)}
                 className="w-full inline-flex justify-center items-center gap-2 py-3.5 rounded-xl bg-brand-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow"
               >
                 <span>Get in Touch</span>
