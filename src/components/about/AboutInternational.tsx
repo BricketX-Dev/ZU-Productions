@@ -31,7 +31,7 @@ const INTERNATIONAL_PROJECTS = [
 ];
 
 export default function AboutInternational() {
-  const globeIconSrc = "/images/icons/about/globe.svg"; // Update path
+  const globeIconSrc = "/images/icons/about/globe.png";
 
   return (
     <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24 border-b border-surface-border select-none">
@@ -43,6 +43,7 @@ export default function AboutInternational() {
                 src={globeIconSrc}
                 alt="Globe Icon"
                 fill
+                sizes="14px"
                 className="object-contain"
               />
             </div>

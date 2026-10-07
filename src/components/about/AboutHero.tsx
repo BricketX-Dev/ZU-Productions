@@ -29,8 +29,8 @@ export default function AboutHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Update this path to your custom icon
-  const manifestoIconSrc = "/images/icons/about/manifesto.svg";
-  const discIconSrc = "/images/icons/about/disc.svg";
+  const manifestoIconSrc = "/images/icons/about/manifesto.png";
+  const discIconSrc = "/images/icons/about/disc.png";
 
   return (
     <section className="relative border-b border-surface-border overflow-hidden select-none">

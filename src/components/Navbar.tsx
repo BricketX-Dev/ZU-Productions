@@ -11,12 +11,6 @@ import {
   X,
   ArrowUpRight,
   ChevronDown,
-  Film,
-  Video,
-  Tv,
-  Smartphone,
-  Sparkles,
-  Palette,
   Play,
   Briefcase,
   Mail,
@@ -28,42 +22,42 @@ const SERVICE_LINKS = [
     title: "Film & Video Production",
     href: "/services/film-video-production",
     desc: "Corporate videos, TV commercials, and brand films.",
-    icon: Film,
+    iconSrc: "/images/icons/services/film.png",
     tag: "VIDEO",
   },
   {
     title: "Events & Staging",
     href: "/services/event-production",
     desc: "Stage setup, audio-visual, and live event coverage.",
-    icon: Video,
+    iconSrc: "/images/icons/services/event.png",
     tag: "EVENTS",
   },
   {
     title: "Live Broadcast",
     href: "/services/broadcast-production",
     desc: "Multi-camera live streaming and transmission.",
-    icon: Tv,
+    iconSrc: "/images/icons/services/broadcast.png",
     tag: "LIVE",
   },
   {
     title: "Social & Digital Content",
     href: "/services/digital-content",
     desc: "Short videos, reels, podcasts, and social media campaigns.",
-    icon: Smartphone,
+    iconSrc: "/images/icons/services/digital.png",
     tag: "SOCIAL",
   },
   {
     title: "Editing & Post-Production",
     href: "/services/post-production",
     desc: "Video editing, color grading, visual effects, and sound design.",
-    icon: Sparkles,
+    iconSrc: "/images/icons/services/post.png",
     tag: "POST",
   },
   {
     title: "Set & Art Design",
     href: "/services/production-design",
     desc: "Set construction, background styling, and creative direction.",
-    icon: Palette,
+    iconSrc: "/images/icons/services/art.png",
     tag: "ART",
   },
 ];
@@ -262,7 +256,6 @@ export default function Navbar() {
                     </div>
 
                     {SERVICE_LINKS.map((service) => {
-                      const Icon = service.icon;
                       const isActive = pathname === service.href;
 
                       return (
@@ -276,15 +269,23 @@ export default function Navbar() {
                               : "bg-surface/50 hover:bg-neutral-900/90 border-surface-border hover:border-neutral-700"
                           }`}
                         >
+                          {/* Custom Local Icon */}
                           <div
-                            className={`p-2.5 rounded-lg border transition-all ${
+                            className={`relative w-9 h-9 rounded-lg border p-1.5 shrink-0 transition-all ${
                               isActive
-                                ? "bg-brand-dark-red/30 border-brand-red/60 text-white"
-                                : "bg-neutral-900 border-neutral-800 text-brand-accent group-hover/item:border-brand-red/50 group-hover/item:bg-brand-dark-red/20"
+                                ? "bg-brand-dark-red/30 border-brand-red/60"
+                                : "bg-neutral-900 border-neutral-800 group-hover/item:border-brand-red/50 group-hover/item:bg-brand-dark-red/20"
                             }`}
                           >
-                            <Icon className="w-4 h-4" />
+                            <Image
+                              src={service.iconSrc}
+                              alt={service.title}
+                              fill
+                              sizes="36px"
+                              className="object-contain p-0.5"
+                            />
                           </div>
+
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-0.5">
                               <span
@@ -304,7 +305,7 @@ export default function Navbar() {
                                 {service.tag}
                               </span>
                             </div>
-                            <p className="font-sans text-[11px] text-neutral-400 normal-case leading-snug line-clamp-1">
+                            <p className="font-sans text-[11px] text-neutral-400 normal-case leading-snug line-clamp-1 font-light">
                               {service.desc}
                             </p>
                           </div>
@@ -407,7 +408,7 @@ export default function Navbar() {
                                   {proj.tag}
                                 </span>
                               </div>
-                              <span className="font-sans text-[11px] text-neutral-400 normal-case block">
+                              <span className="font-sans text-[11px] text-neutral-400 normal-case block font-light">
                                 {proj.scope} • {proj.category}
                               </span>
                             </div>
@@ -575,7 +576,6 @@ export default function Navbar() {
                       </Link>
 
                       {SERVICE_LINKS.map((service) => {
-                        const Icon = service.icon;
                         const isSubActive = pathname === service.href;
 
                         return (
@@ -589,11 +589,16 @@ export default function Navbar() {
                             }`}
                           >
                             <div className="flex items-center gap-2.5">
-                              <Icon
-                                className={`w-3.5 h-3.5 ${
-                                  isSubActive ? "text-brand-red" : "text-neutral-500"
-                                }`}
-                              />
+                              {/* Custom Local Icon */}
+                              <div className="relative w-5 h-5 shrink-0">
+                                <Image
+                                  src={service.iconSrc}
+                                  alt={service.title}
+                                  fill
+                                  sizes="20px"
+                                  className="object-contain"
+                                />
+                              </div>
                               <span>{service.title}</span>
                             </div>
                             {isSubActive && (
@@ -705,6 +710,7 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
+                    onClick={() => setIsOpen(false)}
                     className={`flex items-center justify-between py-2.5 border-b text-sm font-mono uppercase tracking-widest transition-colors ${
                       isActive
                         ? "text-brand-accent font-bold border-brand-red/30 bg-neutral-900/40 -mx-3 px-3 rounded-lg"
@@ -729,6 +735,7 @@ export default function Navbar() {
               {/* Contact Link */}
               <Link
                 href="/contact"
+                onClick={() => setIsOpen(false)}
                 className={`flex items-center justify-between py-2.5 border-b text-sm font-mono uppercase tracking-widest transition-colors ${
                   isContactActive
                     ? "text-brand-accent font-bold border-brand-red/30 bg-neutral-900/40 -mx-3 px-3 rounded-lg"
@@ -753,6 +760,7 @@ export default function Navbar() {
             <div className="pt-6 space-y-4">
               <Link
                 href="/contact"
+                onClick={() => setIsOpen(false)}
                 className="w-full inline-flex justify-center items-center gap-2 py-3.5 rounded-xl bg-brand-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow"
               >
                 <span>Get in Touch</span>
