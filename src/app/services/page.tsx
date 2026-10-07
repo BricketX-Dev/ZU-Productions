@@ -1,6 +1,7 @@
 // src/app/services/page.tsx
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { SERVICES_DETAILED } from "@/data/servicesData";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
@@ -41,9 +42,23 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
               {/* Left Column: Title & Overview */}
               <div className="lg:col-span-6 space-y-3 sm:space-y-4">
-                <span className="font-mono text-xs sm:text-sm font-bold text-brand-red">
-                  PHASE // {srv.id}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-brand-red">
+                    PHASE // {srv.id}
+                  </span>
+                  
+                  {/* Local Icon Container */}
+                  <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center p-2 shrink-0">
+                    <Image
+                      src={srv.iconSrc}
+                      alt={`${srv.title} icon`}
+                      fill
+                      sizes="48px"
+                      className="object-contain p-1"
+                    />
+                  </div>
+                </div>
+
                 <h2 className="font-display text-xl xs:text-2xl sm:text-4xl font-extrabold uppercase text-white leading-tight">
                   {srv.title}
                 </h2>

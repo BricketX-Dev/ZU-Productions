@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { SERVICES } from "@/data/content";
 
-function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
+function ServiceCard({ item }: { item: (typeof SERVICES)[number] & { iconSrc?: string } }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   // Mouse coordinate values
@@ -37,7 +38,8 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
     mouseY.set(0);
   };
 
-  const Icon = item.icon;
+  // Resolves your local image icon path (adjust the default fallback folder as needed)
+  const iconPath = item.iconSrc || (typeof item.icon === "string" ? item.icon : `/images/icons/${item.id.toLowerCase()}.svg`);
 
   return (
     <div className="h-full" style={{ perspective: 1000 }}>
@@ -70,8 +72,17 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
         {/* Card Content with 3D Depth */}
         <div style={{ transform: "translateZ(30px)" }}>
           <div className="flex justify-between items-start mb-6">
-            <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-brand-accent group-hover:bg-brand-red group-hover:text-white transition-all duration-300 group-hover:scale-105 shadow-inner">
-              <Icon className="w-5 h-5" />
+            {/* Local Image Icon Container */}
+            <div className="relative w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center p-2.5 transition-all duration-300 group-hover:border-brand-red/60 group-hover:bg-neutral-850 group-hover:scale-105 shadow-inner">
+              <div className="relative w-full h-full">
+                <Image
+                  src={iconPath}
+                  alt={`${item.title} icon`}
+                  fill
+                  sizes="24px"
+                  className="object-contain transition-transform duration-300 group-hover:brightness-125"
+                />
+              </div>
             </div>
             <span className="font-mono text-xs font-semibold text-neutral-600 group-hover:text-neutral-400 transition-colors">
               {item.id}
@@ -81,7 +92,7 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
           <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-neutral-100 transition-colors">
             {item.title}
           </h3>
-          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6">
+          <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-light">
             {item.desc}
           </p>
         </div>
@@ -109,7 +120,7 @@ function ServiceCard({ item }: { item: (typeof SERVICES)[number] }) {
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 max-w-7xl mx-auto px-6 relative">
+    <section id="services" className="py-24 max-w-7xl mx-auto px-6 relative select-none">
       {/* Background Section Accent */}
       <div className="absolute top-1/2 -left-40 w-96 h-96 bg-brand-dark-red/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -123,12 +134,12 @@ export default function Services() {
             What We Do
           </h2>
         </div>
-        <p className="text-neutral-400 text-sm max-w-md leading-relaxed">
+        <p className="text-neutral-400 text-sm max-w-md leading-relaxed font-light">
           End-to-end creative and physical execution covering commercial production, live broadcasts, and brand storytelling.
         </p>
       </div>
 
-      {/* Responsive Container: Horizontal swipe snap reel on mobile, multi-column grid on md+ */}
+      {/* Responsive Container: Horizontal peek swipe on mobile, 3-column grid on md+ */}
       <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory scroll-pl-6 -mx-6 px-6 md:mx-0 md:px-0 pb-6 md:pb-0 scrollbar-none">
         {SERVICES.map((item) => (
           <div

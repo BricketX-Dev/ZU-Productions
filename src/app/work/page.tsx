@@ -3,6 +3,7 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Play, 
@@ -10,9 +11,7 @@ import {
   Film, 
   Volume2, 
   VolumeX, 
-  Sparkles, 
   Cpu, 
-  Layers, 
   Video 
 } from "lucide-react";
 
@@ -27,6 +26,12 @@ interface ArchiveProject {
   aspectRatio: string;
   resolution: string;
   video: string;
+}
+
+interface WorkClassification {
+  title: string;
+  items: string;
+  iconSrc: string;
 }
 
 const ARCHIVE_PROJECTS: ArchiveProject[] = [
@@ -104,6 +109,39 @@ const ARCHIVE_PROJECTS: ArchiveProject[] = [
   },
 ];
 
+const WORK_CLASSIFICATIONS: WorkClassification[] = [
+  {
+    title: "Corporate",
+    items: "Corporate Films | Company Profiles | Institutional Content | Leadership Series",
+    iconSrc: "/images/icons/work/corporate.png",
+  },
+  {
+    title: "Commercial",
+    items: "TVCs | DVCs | Brand Films | Product Videos | Promotional Content",
+    iconSrc: "/images/icons/work/commercial.png",
+  },
+  {
+    title: "Events",
+    items: "Conferences | Convocations | Award Ceremonies | Launches | Corporate Events",
+    iconSrc: "/images/icons/work/events.png",
+  },
+  {
+    title: "Documentaries",
+    items: "Documentary Films | In-Depth Interviews | Institutional Stories | Social Awareness",
+    iconSrc: "/images/icons/work/documentaries.png",
+  },
+  {
+    title: "Music & Entertainment",
+    items: "Official Music Videos | Sports Anthems | Nasheeds | Entertainment Productions",
+    iconSrc: "/images/icons/work/music.png",
+  },
+  {
+    title: "Broadcast & Post-Production",
+    items: "Multi-Camera Live Production | Color Grading | Motion Graphics | VFX Finishing",
+    iconSrc: "/images/icons/work/broadcast.png",
+  },
+];
+
 const CATEGORIES = [
   "All",
   "Music Video",
@@ -144,9 +182,9 @@ export default function WorkArchivePage() {
   };
 
   return (
-    <div className="pt-24 pb-28 bg-black text-white min-h-screen select-none">
+    <div className="pt-20 sm:pt-24 pb-20 sm:pb-28 bg-black text-white min-h-screen select-none">
       {/* 1. CURATED SHOWREEL THEATER */}
-      <section className="max-w-7xl mx-auto px-6 py-12 border-b border-surface-border">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-10 sm:py-12 border-b border-surface-border">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 bg-surface">
@@ -155,7 +193,7 @@ export default function WorkArchivePage() {
                 Production Showreel
               </span>
             </div>
-            <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight">
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
               A Frame-by-Frame Look <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-neutral-200 to-brand-accent">
                 At What We Create.
@@ -195,20 +233,20 @@ export default function WorkArchivePage() {
             className="absolute inset-0 flex items-center justify-center cursor-pointer focus:outline-none"
             aria-label={isPlayingShowreel ? "Pause Showreel" : "Play Showreel"}
           >
-            <div className={`w-20 h-20 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center transition-all duration-300 ${
+            <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/60 border border-white/20 backdrop-blur-md flex items-center justify-center transition-all duration-300 ${
               isPlayingShowreel ? "opacity-0 group-hover:opacity-100 scale-90" : "opacity-100 scale-100 crimson-glow"
             }`}>
-              <Play className={`w-8 h-8 text-white ${isPlayingShowreel ? "fill-white" : "fill-white translate-x-0.5"}`} />
+              <Play className={`w-6 h-6 sm:w-8 sm:h-8 text-white ${isPlayingShowreel ? "fill-white" : "fill-white translate-x-0.5"}`} />
             </div>
           </button>
 
           {/* Bottom HUD Bar */}
-          <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none z-10">
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex items-center justify-between pointer-events-none z-10">
             <div>
               <span className="font-mono text-[9px] uppercase tracking-widest text-brand-accent block font-semibold">
                 MASTER SHOWREEL
               </span>
-              <span className="font-display text-sm sm:text-base font-bold text-white uppercase tracking-tight">
+              <span className="font-display text-xs sm:text-base font-bold text-white uppercase tracking-tight">
                 ZU PRODUCTION // COMPILATION REEL
               </span>
             </div>
@@ -217,7 +255,7 @@ export default function WorkArchivePage() {
               <button
                 type="button"
                 onClick={toggleMute}
-                className="p-2.5 rounded-lg bg-black/60 border border-white/10 text-neutral-300 hover:text-white backdrop-blur-md transition-colors cursor-pointer"
+                className="p-2 sm:p-2.5 rounded-lg bg-black/60 border border-white/10 text-neutral-300 hover:text-white backdrop-blur-md transition-colors cursor-pointer"
                 aria-label="Toggle Audio"
               >
                 {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -228,8 +266,8 @@ export default function WorkArchivePage() {
       </section>
 
       {/* 2. CATEGORY FILTER RAIL */}
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-surface-border pb-6">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16 pb-6 sm:pb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 border-b border-surface-border pb-6">
           <div>
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block font-semibold">
               INDEXED ARCHIVE
@@ -239,7 +277,7 @@ export default function WorkArchivePage() {
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-2 sm:pb-0 -mx-5 px-5 sm:mx-0 sm:px-0">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat;
               return (
@@ -247,7 +285,7 @@ export default function WorkArchivePage() {
                   key={cat}
                   type="button"
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider transition-all duration-200 shrink-0 cursor-pointer ${
                     isActive
                       ? "bg-brand-red text-white border border-brand-red crimson-glow-sm"
                       : "bg-surface/60 border border-surface-border text-neutral-400 hover:border-neutral-700 hover:text-white"
@@ -262,7 +300,7 @@ export default function WorkArchivePage() {
       </section>
 
       {/* 3. PROJECT DIRECTORY GRID */}
-      <section className="max-w-7xl mx-auto px-6 py-6">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-4 sm:py-6">
         <motion.div 
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -275,21 +313,29 @@ export default function WorkArchivePage() {
         </motion.div>
       </section>
 
-      {/* 4. DIGITAL CONTENT PRODUCTION & AI PRODUCTION PANELS */}
-      <section className="max-w-7xl mx-auto px-6 pt-24 border-t border-surface-border mt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+{/* 4. DIGITAL CONTENT PRODUCTION & AI PRODUCTION PANELS */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 pt-16 sm:pt-24 border-t border-surface-border mt-12 sm:mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           
           {/* Digital Content Production */}
-          <div className="p-8 sm:p-10 rounded-2xl bg-surface/50 border border-surface-border flex flex-col justify-between space-y-6">
+          <div className="p-6 sm:p-10 rounded-2xl bg-surface/50 border border-surface-border flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-brand-accent font-mono text-[10px] uppercase tracking-widest font-semibold">
-                <Video className="w-3.5 h-3.5" />
+                <div className="relative w-4 h-4 shrink-0">
+                  <Image
+                    src="/images/icons/work/digital-content.png"
+                    alt="Digital Content Icon"
+                    fill
+                    sizes="16px"
+                    className="object-contain"
+                  />
+                </div>
                 <span>Digital Content Production</span>
               </div>
               <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white">
                 Content for the Digital World
               </h3>
-              <p className="text-neutral-300 text-sm leading-relaxed font-light">
+              <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
                 Our digital production experience extends across social media, short-form video, YouTube long-form, branded content, promotional campaigns, podcasts, and interview-based productions.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
@@ -307,16 +353,24 @@ export default function WorkArchivePage() {
           </div>
 
           {/* AI-Assisted Creative Production */}
-          <div className="p-8 sm:p-10 rounded-2xl bg-surface/50 border border-surface-border flex flex-col justify-between space-y-6">
+          <div className="p-6 sm:p-10 rounded-2xl bg-surface/50 border border-surface-border flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-brand-accent font-mono text-[10px] uppercase tracking-widest font-semibold">
-                <Cpu className="w-3.5 h-3.5" />
+                <div className="relative w-4 h-4 shrink-0">
+                  <Image
+                    src="/images/icons/work/ai-workflows.png"
+                    alt="AI Workflows Icon"
+                    fill
+                    sizes="16px"
+                    className="object-contain"
+                  />
+                </div>
                 <span>AI-Assisted Creative Workflows</span>
               </div>
               <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white">
                 Creativity Meets Emerging Technology
               </h3>
-              <p className="text-neutral-300 text-sm leading-relaxed font-light">
+              <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
                 ZU Production integrates AI-assisted creative production into selected projects where it adds tangible value to the creative development process.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
@@ -336,10 +390,10 @@ export default function WorkArchivePage() {
         </div>
       </section>
 
-      {/* 5. MULTI-DISCIPLINARY DELIVERABLE TILES */}
-      <section className="max-w-7xl mx-auto px-6 pt-20">
-        <div className="rounded-3xl border border-surface-border bg-neutral-950 p-8 sm:p-12">
-          <div className="max-w-3xl mb-10 space-y-2">
+      {/* 5. MULTI-DISCIPLINARY DELIVERABLE TILES (SELECTED WORK CLASSIFICATIONS) */}
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 pt-16 sm:pt-20">
+        <div className="rounded-3xl border border-surface-border bg-neutral-950 p-6 sm:p-12">
+          <div className="max-w-3xl mb-8 sm:mb-10 space-y-2">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-accent block font-semibold">
               SCOPE DIRECTORY
             </span>
@@ -351,69 +405,40 @@ export default function WorkArchivePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-xs">
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Corporate
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                Corporate Films | Company Profiles | Institutional Content | Leadership Series
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Commercial
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                TVCs | DVCs | Brand Films | Product Videos | Promotional Content
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Events
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                Conferences | Convocations | Award Ceremonies | Launches | Corporate Events
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Documentaries
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                Documentary Films | In-Depth Interviews | Institutional Stories | Social Awareness
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Music & Entertainment
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                Official Music Videos | Sports Anthems | Nasheeds | Entertainment Productions
-              </p>
-            </div>
-
-            <div className="p-5 rounded-xl bg-surface/70 border border-neutral-800/80 space-y-2">
-              <span className="text-white font-bold block border-b border-neutral-800 pb-2 uppercase text-[11px]">
-                Broadcast & Post-Production
-              </span>
-              <p className="text-neutral-400 text-[11px] leading-relaxed">
-                Multi-Camera Live Production | Color Grading | Motion Graphics | VFX Finishing
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 font-mono text-xs">
+            {WORK_CLASSIFICATIONS.map((classification) => (
+              <div 
+                key={classification.title} 
+                className="group p-5 rounded-xl bg-surface/70 border border-neutral-800/80 hover:border-neutral-700 transition-colors space-y-3"
+              >
+                <div className="flex items-center gap-3 border-b border-neutral-800 pb-3">
+                  <div className="relative w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center p-1.5 shrink-0 group-hover:border-brand-red/50 transition-colors">
+                    <Image
+                      src={classification.iconSrc}
+                      alt={classification.title}
+                      fill
+                      sizes="32px"
+                      className="object-contain p-1"
+                    />
+                  </div>
+                  <span className="text-white font-bold block uppercase text-[11px] truncate">
+                    {classification.title}
+                  </span>
+                </div>
+                <p className="text-neutral-400 text-[11px] leading-relaxed">
+                  {classification.items}
+                </p>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-10 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-neutral-500 font-mono text-xs">
+          <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-neutral-500 font-mono text-xs text-center sm:text-left">
               Deploying complete crew and technical equipment packages worldwide.
             </span>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all"
+              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-full bg-brand-red hover:bg-brand-dark-red text-white text-xs font-mono uppercase tracking-widest font-bold crimson-glow transition-all"
             >
               <span>Initiate Project Brief</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -488,12 +513,12 @@ function ProjectArchiveCard({ project }: { project: ArchiveProject }) {
       </div>
 
       {/* Metadata & Case Study Link */}
-      <div className="p-6 space-y-4">
+      <div className="p-5 sm:p-6 space-y-4">
         <div>
           <span className="text-[10px] font-mono text-brand-accent uppercase tracking-wider block mb-1">
             {project.client}
           </span>
-          <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white group-hover:text-neutral-100 transition-colors">
+          <h3 className="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-white group-hover:text-neutral-100 transition-colors">
             {project.title}
           </h3>
           <p className="mt-2 text-neutral-400 text-xs font-light leading-relaxed line-clamp-2">

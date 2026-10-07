@@ -16,7 +16,8 @@ export interface ServiceItem {
   href: string;
   title: string;
   desc: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  iconSrc: string; // Path to your local icon in public/images/icons/home/
   items: string[];
 }
 
@@ -37,7 +38,6 @@ export interface ProjectItem {
   resolution: string;
   featured?: boolean;
 }
-
 
 export interface ClientBrand {
   name: string;
@@ -63,6 +63,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Film & Video Production",
     desc: "Corporate profile films, institutional videos, CEO & leadership features, commercials (TVCs/DVCs), and interview-led or corporate documentaries.",
     icon: Film,
+    iconSrc: "/images/icons/home/film.png", // Replace with your exact filename (e.g. .svg / .png)
     items: ["Corporate Films", "TVCs & DVCs", "Documentaries", "Brand Stories"],
   },
   {
@@ -72,6 +73,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Event Management & Production",
     desc: "End-to-end event execution: stage architecture, professional audio, intelligent lighting, LED walls, multi-camera capture, and post-event highlight reels.",
     icon: Video,
+    iconSrc: "/images/icons/home/event.png", // Replace with your exact filename
     items: ["Conferences", "Award Ceremonies", "Stage Design", "AV & Lighting"],
   },
   {
@@ -81,6 +83,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Digital Content Production",
     desc: "Content tailored for social media behavior: high-impact Reels, Shorts, YouTube long-form, digital commercials, podcasts, and digital campaigns.",
     icon: Smartphone,
+    iconSrc: "/images/icons/home/digital.png", // Replace with your exact filename
     items: ["Reels & Shorts", "Podcasts", "Branded Series", "Campaign Creatives"],
   },
   {
@@ -90,6 +93,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Multi-Camera & Broadcast",
     desc: "Large-scale multi-camera direction, live switching, broadcast-grade camera packages, communication systems, and professional live-crew coordination.",
     icon: Tv,
+    iconSrc: "/images/icons/home/broadcast.png", // Replace with your exact filename
     items: ["Live Switching", "Multi-Cam Direction", "Broadcast Crew", "Convocations"],
   },
   {
@@ -99,6 +103,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Post-Production & AI Workflows",
     desc: "High-end editing, master color grading, motion graphics, sound design, visual effects, and selective AI-assisted conceptual visualization.",
     icon: Sparkles,
+    iconSrc: "/images/icons/home/post-production.png", // Replace with your exact filename
     items: ["Color Grading", "VFX & Motion", "Sound Mastering", "AI Visual R&D"],
   },
   {
@@ -108,6 +113,7 @@ export const SERVICES: ServiceItem[] = [
     title: "Production Design & Art Direction",
     desc: "Visual world-building: custom set design, prop curation, atmospheric lighting palettes, composition, and visual aesthetics aligned to narrative.",
     icon: Palette,
+    iconSrc: "/images/icons/home/production-design.png", // Replace with your exact filename
     items: ["Set Design", "Art Direction", "Styling & Props", "Visual Identity"],
   },
 ];
@@ -144,17 +150,17 @@ export const PROJECTS: ProjectItem[] = [
     resolution: "4K ProRes",
     featured: true,
   },
-{
-  slug: "studio-podcast-series",
-  title: "The Studio Sessions // Digital Show",
-  client: "Original Studio Production (in collab with BOL Media)",
-  scope: "Multi-Camera Episodic Podcast & Live Broadcast",
-  category: "Digital Content", // or "Commercial" / "Event"
-  video: "/videos/projects/podcast.mp4",
-  aspectRatio: "16:9 Master / 9:16 Vertical",
-  resolution: "4K Multi-Cam / ISO Feeds",
-  featured: true,
-},
+  {
+    slug: "studio-podcast-series",
+    title: "The Studio Sessions // Digital Show",
+    client: "Original Studio Production (in collab with BOL Media)",
+    scope: "Multi-Camera Episodic Podcast & Live Broadcast",
+    category: "Digital Content",
+    video: "/videos/projects/podcast.mp4",
+    aspectRatio: "16:9 Master / 9:16 Vertical",
+    resolution: "4K Multi-Cam / ISO Feeds",
+    featured: true,
+  },
   {
     slug: "ptpl-anthem",
     title: "Pakistan Tape Ball Premier League",

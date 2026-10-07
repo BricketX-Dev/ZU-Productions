@@ -5,6 +5,7 @@ export interface ServiceDetail {
   title: string;
   tagline: string;
   overview: string;
+  iconSrc: string; // Path to your local icon file
   deliverables: string[];
   subCapabilities: { title: string; items: string[] }[];
   technicalSpecs: { label: string; value: string }[];
@@ -18,6 +19,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "High-End Corporate, Commercial, and Documentary Storytelling",
     overview:
       "We develop and produce professionally crafted visual content for brands, institutions, and high-profile campaigns. From scripting through final digital mastering, our teams operate cinema-grade setups tailored to commercial impact.",
+    iconSrc: "/images/icons/services/film.png",
     deliverables: [
       "Corporate Profile Films",
       "TV & Digital Commercials (TVCs/DVCs)",
@@ -70,6 +72,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "Turnkey Production Architecture & Technical Live Execution",
     overview:
       "Integrated Event Management and Technical Production solutions combining creative stage architecture, visual display installations, broadcast lighting, and live multi-camera capture for large-scale institutional gatherings.",
+    iconSrc: "/images/icons/services/event.png",
     deliverables: [
       "Turnkey Stage & Set Architecture",
       "Intelligent Lighting & Sound Engineering",
@@ -112,6 +115,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "Algorithm-Aware, High-Impact Media for Modern Channels",
     overview:
       "We design short- and long-form video specifically calibrated for current audience consumption trends-combining agile filming units with rapid turnaround editing workflows.",
+    iconSrc: "/images/icons/services/digital.png",
     deliverables: [
       "9:16 Cinematic Reels & Shorts",
       "Long-Form YouTube Productions",
@@ -143,6 +147,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "Broadcast-Grade Switching, Engineering, and Live Crew Direction",
     overview:
       "Engineered multi-camera production packages for conferences, live ceremonies, sports tournaments, and real-time transmissions with zero latency tolerance.",
+    iconSrc: "/images/icons/services/broadcast.png",
     deliverables: [
       "Live Production Control Room Setup",
       "Multi-Angle Synchronized Records",
@@ -174,6 +179,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "Precision Editing, DaVinci Color Grading, VFX, and Finishing",
     overview:
       "Raw footage transformed into finished master deliverables. Our finishing pipeline pairs established post-production practices with AI-assisted visual pre-visualization techniques.",
+    iconSrc: "/images/icons/services/post.png",
     deliverables: [
       "Master DaVinci Resolve Color Grade",
       "Sound Design, Foley, and 5.1 Mix",
@@ -205,6 +211,7 @@ export const SERVICES_DETAILED: Record<string, ServiceDetail> = {
     tagline: "Spatial World-Building, Set Construction, and Visual Aesthetic",
     overview:
       "Crafting the visual world that frames the narrative. We oversee environments, color coordination, props, and architectural framing to ensure each frame serves the story.",
+    iconSrc: "/images/icons/services/art.png",
     deliverables: [
       "Set Concept Sketches & CAD Plans",
       "Custom Studio & Set Fabrication",
