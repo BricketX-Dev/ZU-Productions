@@ -1,11 +1,23 @@
-// src/app/page.tsx
+import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
 import ClientsMarquee from "@/components/sections/ClientsMarquee";
-import Services from "@/components/sections/Services";
-import Portfolio from "@/components/sections/Portfolio";
-import Workflow from "@/components/sections/Workflow";
-import Team from "@/components/sections/Team";
-import Contact from "@/components/sections/Contact";
+
+// Below-the-fold code-splitting to eliminate main-thread JS bloat
+const Services = dynamic(() => import("@/components/sections/Services"), {
+  ssr: true,
+});
+const Portfolio = dynamic(() => import("@/components/sections/Portfolio"), {
+  ssr: true,
+});
+const Workflow = dynamic(() => import("@/components/sections/Workflow"), {
+  ssr: true,
+});
+const Team = dynamic(() => import("@/components/sections/Team"), {
+  ssr: true,
+});
+const Contact = dynamic(() => import("@/components/sections/Contact"), {
+  ssr: true,
+});
 
 export default function Home() {
   return (

@@ -1,10 +1,24 @@
-// src/app/about/page.tsx
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import AboutHero from "@/components/about/AboutHero";
-import AboutPhilosophy from "@/components/about/AboutPhilosophy";
-import AboutAdvantages from "@/components/about/AboutAdvantages";
-import AboutInternational from "@/components/about/AboutInternational";
-import AboutTeam from "@/components/about/AboutTeam";
+
+// Dynamic imports for lower sections
+const AboutPhilosophy = dynamic(
+  () => import("@/components/about/AboutPhilosophy"),
+  { ssr: true }
+);
+const AboutAdvantages = dynamic(
+  () => import("@/components/about/AboutAdvantages"),
+  { ssr: true }
+);
+const AboutInternational = dynamic(
+  () => import("@/components/about/AboutInternational"),
+  { ssr: true }
+);
+const AboutTeam = dynamic(
+  () => import("@/components/about/AboutTeam"),
+  { ssr: true }
+);
 
 export const metadata: Metadata = {
   title: "About Studio | ZU PRODUCTION",
