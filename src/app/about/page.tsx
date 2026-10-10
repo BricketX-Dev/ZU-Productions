@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   description:
     "Integrated creative production company delivering commercial films, multi-camera broadcasts, event staging, and master post-production.",
 };
-
 export default function AboutPage() {
   return (
     <div className="pt-20 sm:pt-24 pb-20 sm:pb-28 bg-black text-white select-none">
