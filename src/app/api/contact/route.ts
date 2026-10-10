@@ -2,13 +2,21 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "notifications@zuproduction.pk";
-const TO_EMAIL = process.env.CONTACT_RECEIVER_EMAIL || "contact@zuproduction.pk";
-
 export async function POST(req: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("Missing RESEND_API_KEY environment variable.");
+      return NextResponse.json(
+        { error: "Server email configuration is missing." },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(apiKey);
+    const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "notifications@zuproduction.pk";
+    const TO_EMAIL = process.env.CONTACT_RECEIVER_EMAIL || "contact@zuproduction.pk";
+
     const body = await req.json();
     const {
       name,
@@ -34,7 +42,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Please enter your name." }, { status: 400 });
     }
 
-    // 2. Reliable Email Check (no regex pitfalls)
+    // 2. Reliable Email Check
     if (!trimmedEmail || !trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
@@ -42,7 +50,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Reliable Phone Check (at least 6 digits)
+    // 3. Reliable Phone Check
     const phoneDigits = trimmedPhone.replace(/\D/g, "");
     if (!trimmedPhone || phoneDigits.length < 6) {
       return NextResponse.json(
@@ -51,7 +59,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Pre-computed HTML blocks to avoid \${company} template bugs
+    // Pre-computed HTML blocks
     const companySummaryHtml = trimmedCompany
       ? `<p style="color: #888888; margin: 6px 0;">Company: <span style="color: #ffffff; font-weight: 500;">${trimmedCompany}</span></p>`
       : "";
@@ -68,7 +76,7 @@ export async function POST(req: Request) {
       ? `[New Lead] ${projectType} - ${trimmedName} (${trimmedCompany})`
       : `[New Lead] ${projectType} - ${trimmedName}`;
 
-    // 1. Internal Studio Notification
+    // Internal Studio Notification
     const internalMailPromise = resend.emails.send({
       from: `ZU Production Leads <${FROM_EMAIL}>`,
       to: [TO_EMAIL],
@@ -102,7 +110,7 @@ export async function POST(req: Request) {
       `,
     });
 
-    // 2. Client Confirmation Auto-Reply
+    // Client Confirmation
     const clientReplyPromise = resend.emails.send({
       from: `ZU Production <${FROM_EMAIL}>`,
       to: [trimmedEmail],
