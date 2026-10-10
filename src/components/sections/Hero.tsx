@@ -13,7 +13,7 @@ export default function Hero() {
   const showreelVideoRef = useRef<HTMLVideoElement>(null);
   const [timecode, setTimecode] = useState("00:00:00:00");
 
-  // Realtime Running SMPTE Timecode
+  // Realtime Running SMPTE Timecode (Throttled to 10 FPS to eliminate main-thread TBT penalty)
   useEffect(() => {
     let frame = 0;
     const interval = setInterval(() => {
@@ -27,7 +27,7 @@ export default function Hero() {
 
       const pad = (n: number) => n.toString().padStart(2, "0");
       setTimecode(`${pad(hours)}:${pad(minutes)}:${pad(seconds)}:${pad(frames)}`);
-    }, 1000 / 24);
+    }, 100);
 
     return () => clearInterval(interval);
   }, []);
@@ -63,13 +63,14 @@ export default function Hero() {
     <>
       <section className="relative min-h-[92vh] flex items-center justify-center px-6 overflow-hidden border-b border-surface-border bg-black select-none">
         {/* 1. CINEMATIC BACKGROUND VIDEO */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-neutral-950">
           <video
             ref={videoRef}
             autoPlay
             loop
             muted={isMuted}
             playsInline
+            preload="auto"
             className="w-full h-full object-cover scale-[1.02] opacity-40 filter brightness-90 contrast-125"
           >
             <source src="/videos/bg.mp4" type="video/mp4" />
@@ -123,12 +124,12 @@ export default function Hero() {
               >
                 {isMuted ? (
                   <>
-                    <VolumeX className="w-3 h-3 text-neutral-500" />
+                    <VolumeX className="w-3.5 h-3.5 text-neutral-500" />
                     <span className="hidden sm:inline">Sound Off</span>
                   </>
                 ) : (
                   <>
-                    <Volume2 className="w-3 h-3 text-brand-accent animate-pulse" />
+                    <Volume2 className="w-3.5 h-3.5 text-brand-accent animate-pulse" />
                     <span className="text-brand-accent hidden sm:inline">Sound On</span>
                   </>
                 )}
@@ -143,7 +144,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neutral-800/80 bg-neutral-950/60 backdrop-blur-md mb-6"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-brand-red animate-ping" />
@@ -155,7 +156,7 @@ export default function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
             className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[1.1] text-white"
           >
             Creative Production. <br className="hidden sm:inline" />
@@ -167,7 +168,7 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-5 text-neutral-400 max-w-xl mx-auto text-sm sm:text-base font-normal leading-relaxed"
           >
             From the first concept to the final frame - engineering commercial films, documentaries, and large-scale multi-camera live experiences.
@@ -176,7 +177,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="mt-8 flex flex-wrap justify-center items-center gap-3.5"
           >
             <a
@@ -199,7 +200,7 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* 4. LOCAL SHOWREEL MODAL */}
+      {/* 4. LOCAL SHOWREEL MODAL (Only mounts and attaches source when user explicitly opens it) */}
       <AnimatePresence>
         {showreelOpen && (
           <motion.div
@@ -209,7 +210,6 @@ export default function Hero() {
             onClick={handleCloseShowreel}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-8 cursor-pointer"
           >
-            {/* Close Button */}
             <button
               type="button"
               onClick={(e) => {
@@ -222,12 +222,11 @@ export default function Hero() {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Player Card (stopPropagation prevents outside click close) */}
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-5xl aspect-video rounded-xl overflow-hidden border border-surface-border bg-black shadow-2xl relative cursor-default"
             >
@@ -236,9 +235,10 @@ export default function Hero() {
                 controls
                 autoPlay
                 playsInline
+                preload="auto"
+                src="/videos/projects/podcast.mp4"
                 className="w-full h-full object-contain bg-black"
               >
-                <source src="/videos/projects/podcast.mp4" type="video/mp4" />
                 Your browser does not support HTML5 video playback.
               </video>
             </motion.div>
